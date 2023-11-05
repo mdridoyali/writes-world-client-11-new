@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from './../hooks/useAuth';
 import toast from "react-hot-toast";
+import UseLoading from "../hooks/UseLoading";
 
 const AddBlog = () => {
  const {user} = useAuth()
@@ -35,7 +36,8 @@ const AddBlog = () => {
   };
 
   return (
-    <div className="w-10/12 mx-auto my-10 md:my-20">
+    <div>
+    { isLoading ? <UseLoading/> : <div className="w-10/12 mx-auto my-10 md:my-20">
       <h2 className="text-3xl md:text-5xl text-center font-semibold mb-10 ">
         Add Your Blog Here
       </h2>
@@ -107,25 +109,9 @@ const AddBlog = () => {
           </button>
         </div>
       </form>
+    </div>}
     </div>
   );
 };
 
 export default AddBlog;
-
-
-// const express = require('express');
-// const router = express.Router();
-// const Blog = require('../models/Blog'); // Import your Blog model
-
-// router.get('/allBlogs', async (req, res) => {
-//   try {
-//     const blogs = await Blog.find().sort({ timestamp: -1 }); // Sort by timestamp in descending order
-//     res.json(blogs);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-// module.exports = router;

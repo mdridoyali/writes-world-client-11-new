@@ -1,11 +1,17 @@
 
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-const useLoading = () => {
+const UseLoading = () => {
     return (
-        <div>
-            
-        </div>
-    );
+        <SkeletonTheme baseColor="#abacb3" highlightColor="#e3e3e3">
+          <p>
+            <Skeleton count={20} />
+          </p>
+        </SkeletonTheme>
+      );
 };
 
-export default useLoading;
+export default UseLoading;
+
+
