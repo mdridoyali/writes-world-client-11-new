@@ -1,12 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 const AllBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-
-
   const handleSearch = (e) => {
     e.preventDefault();
     fetch(
@@ -71,7 +69,7 @@ const AllBlogs = () => {
             className="border p-5 rounded-2xl w-full space-y-4 shadow-lg"
             key={idx}
           >
-            <img className="w-full rounded-xl" src={item.image} />
+            <img className="w-full hover:shadow-2xl  rounded-xl" src={item.image} />
             <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
               {item.category}
             </p>
@@ -83,7 +81,7 @@ const AllBlogs = () => {
               </button>
               <div className=" hover:border-orange-400 border border-white p-1 mb- rounded-full">
                 {" "}
-                <button className="btn btn-sm btn-accent  rounded-full hover:text-white">
+                <button className="btn btn-sm btn-accent  rounded-full text-white">
                   Details
                 </button>
               </div>
@@ -96,3 +94,4 @@ const AllBlogs = () => {
 };
 
 export default AllBlogs;
+
