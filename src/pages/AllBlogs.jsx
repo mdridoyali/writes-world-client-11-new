@@ -7,6 +7,11 @@ const AllBlogs = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+   const handleCategory = (e) => {
+    setSelectedCategory(e.target.value);
+    console.log(e.target.value);
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     fetch(
@@ -14,11 +19,6 @@ const AllBlogs = () => {
     )
       .then((res) => res.json())
       .then((data) => setBlogs(data));
-  };
-
-  const handleCategory = (e) => {
-    setSelectedCategory(e.target.value);
-    console.log(e.target.value);
   };
 
   useEffect(() => {
@@ -30,15 +30,15 @@ const AllBlogs = () => {
   }, [searchValue, selectedCategory]);
 
  
-//     const { data, isLoading } = useQuery({
-//         queryKey: ["allBlogs"],
-//         queryFn: () =>
-//         fetch(
-//             `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
-//           ).then((res) => res.json()),
+    const { data, isLoading } = useQuery({
+        queryKey: ["allBlogs"],
+        queryFn: () =>
+        fetch(
+            `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+          ).then((res) => res.json()),
           
-//       });
-//       console.log(data)
+      });
+      console.log(data)
 //       setBlogs(data)
 
 //   useEffect(() => {

@@ -7,9 +7,8 @@ import UseLoading from "../hooks/UseLoading";
 const AddBlog = () => {
  const {user} = useAuth()
  const email = user?.email || '';
- const timestamp = new Date()
-//  console.log(timestamp)
-//  console.log(email)
+ const postedTime = new Date()
+
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["category"],
@@ -24,7 +23,7 @@ const AddBlog = () => {
     const short_desc = e.target.short_desc.value;
     const category = e.target.category.value;
     const long_desc = e.target.long_desc.value;
-    const blogDetails = { title, image, short_desc, category, long_desc, email, timestamp };
+    const blogDetails = { title, image, short_desc, category, long_desc, email, postedTime };
     console.log(blogDetails);
 
     axios.post('http://localhost:5000/allBlogs', blogDetails)
