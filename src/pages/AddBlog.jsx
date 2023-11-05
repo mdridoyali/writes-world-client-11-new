@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AddBlog = () => {
-
-    const { data } = useQuery({
-        queryKey: ['repoData'],
-        queryFn: () =>
-          fetch('https://api.github.com/repos/TanStack/query').then(
-            (res) => res.json(),
-          ),
-      })
-      console.log(data)
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["category"],
+    queryFn: () =>
+      fetch("http://localhost:5000/category").then((res) => res.json()),
+  });
+  // const items = data.map(items)
+  // console.log(items)
 
   const handleAddBlog = (e) => {
     e.preventDefault();
@@ -18,9 +17,14 @@ const AddBlog = () => {
     const short_desc = e.target.short_desc.value;
     const category = e.target.category.value;
     const long_desc = e.target.long_desc.value;
-    // console.log(title, image, short_desc, category, long_desc);
-    const blogDetails = {title, image, short_desc, category, long_desc}
-    console.log(blogDetails)
+    const blogDetails = { title, image, short_desc, category, long_desc };
+    console.log(blogDetails);
+
+    axios.post('http://localhost:5000/allBlogs', blogDetails)
+    .then((response) => {
+      console.log(response);
+    })
+
   };
 
   return (
@@ -62,10 +66,19 @@ const AddBlog = () => {
           <div className="form-control flex-1">
             <select
               name="category"
-              className="input input-bordered rounded-full"
+              className="input input-bordered  rounded-full"
             >
-              <option>Category</option>
-              <option>Cat</option>
+              {isLoading ? (
+                <option>Loading...</option>
+              ) : isError ? (
+                <option>Error loading data</option>
+              ) : (
+                data.map((item) => (
+                  <option key={item._id} value={item.category}>
+                    {item.category}
+                  </option>
+                ))
+              )}
             </select>
           </div>
         </div>
