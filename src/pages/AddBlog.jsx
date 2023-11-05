@@ -1,14 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import useAuth from './../hooks/useAuth';
+import toast from "react-hot-toast";
 
 const AddBlog = () => {
+ const {user} = useAuth()
+ const email = user?.email || '';
+ const timestamp = new Date()
+//  console.log(timestamp)
+//  console.log(email)
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["category"],
     queryFn: () =>
       fetch("http://localhost:5000/category").then((res) => res.json()),
   });
-  // const items = data.map(items)
-  // console.log(items)
 
   const handleAddBlog = (e) => {
     e.preventDefault();
@@ -17,12 +23,13 @@ const AddBlog = () => {
     const short_desc = e.target.short_desc.value;
     const category = e.target.category.value;
     const long_desc = e.target.long_desc.value;
-    const blogDetails = { title, image, short_desc, category, long_desc };
+    const blogDetails = { title, image, short_desc, category, long_desc, email, timestamp };
     console.log(blogDetails);
 
     axios.post('http://localhost:5000/allBlogs', blogDetails)
     .then((response) => {
-      console.log(response);
+      console.log(response.data);
+        return toast.success('Blog Added')
     })
 
   };
@@ -105,3 +112,20 @@ const AddBlog = () => {
 };
 
 export default AddBlog;
+
+
+// const express = require('express');
+// const router = express.Router();
+// const Blog = require('../models/Blog'); // Import your Blog model
+
+// router.get('/allBlogs', async (req, res) => {
+//   try {
+//     const blogs = await Blog.find().sort({ timestamp: -1 }); // Sort by timestamp in descending order
+//     res.json(blogs);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+// module.exports = router;
