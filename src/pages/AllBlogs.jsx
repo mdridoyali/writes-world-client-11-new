@@ -1,39 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 const AllBlogs = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["allBlogs"],
-    queryFn: () =>
-      fetch("http://localhost:5000/allBlogs").then((res) => res.json()),
-  });
-  const {
-    data: categoryData,
-    isLoading: categoryLoading,
-    isError: categoryError,
-  } = useQuery({
-    queryKey: ["categoryForFilter"],
-    queryFn: () =>
-      fetch("http://localhost:5000/category").then((res) => res.json()),
-  });
-  console.log(categoryData);
+  const [blogs, setBlogs] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  if (isLoading) {
-    return <p>lod..</p>;
-  }
-  if (isError) {
-    return <p>error..</p>;
-  }
 
-  const handleCategory = (e) => {
-    e.preventDefault();
-    const categoryValue = e.target.value;
-    console.log(categoryValue);
-  };
   const handleSearch = (e) => {
     e.preventDefault();
-    const searchValue = e.target.searchValue.value;
-    console.log(searchValue);
+    fetch(
+      `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+    )
+      .then((res) => res.json())
+      .then((data) => setBlogs(data));
   };
+
+  const handleCategory = (e) => {
+    setSelectedCategory(e.target.value);
+    console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    fetch(
+        `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+      )
+      .then((res) => res.json())
+      .then((data) => setBlogs(data));
+  }, [searchValue,selectedCategory ]);
 
   return (
     <div className=" my-12">
@@ -41,40 +35,38 @@ const AllBlogs = () => {
         All The Blogs
       </h2>
       <div className=" w-11/12 mx-auto gap-5 md:gap-20 lg:gap-72 flex flex-col md:flex-row justify-between  my-6">
-        <form onSubmit={handleSearch} className="relative ">
+        <form onSubmit={handleSearch} className="relative">
           <input
             type="text"
             name="searchValue"
             placeholder="Search by title"
-            className="rounded-full  h-12 w-full outline-none border pl-5 pr-20 border-orange-400 "
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="rounded-full h-12 w-full outline-none border pl-5 pr-20 border-orange-400"
           />
           <button
             type="submit"
-            className="absolute right-0 hover:btn-accent  rounded-full  h-full outline-none border px-7 border-orange-400 "
+            className="absolute right-0 hover:btn-accent rounded-full h-full outline-none border px-7 border-orange-400"
           >
             <FaSistrix className="text-2xl"></FaSistrix>
           </button>
         </form>
         <select
           onChange={handleCategory}
-          className="input  border-orange-400 rounded-full"
+          value={selectedCategory}
+          className="input border-orange-400 rounded-full"
         >
-        <option>All</option>
-          {categoryLoading ? (
-            <option>Loading...</option>
-          ) : categoryError ? (
-            <option>Error loading data</option>
-          ) : (
-            categoryData.map((item) => (
-              <option key={item._id} value={item.category}>
-                {item.category}
-              </option>
-            ))
-          )}
+          <option value="All">All</option>
+          <option value="Food">Food</option>
+          <option value="Nature">Nature</option>
+          <option value="Health">Health</option>
+          <option value="Travel">Travel</option>
+          <option value="Technology">Technology</option>
+          <option value="Lifestyle">Lifestyle</option>
         </select>
       </div>
       <div className="w-11/12 grid gap-10 md:grid-cols-2 lg:grid-cols-3 mx-auto  ">
-        {data.map((item, idx) => (
+        {blogs.map((item, idx) => (
           <div
             className="border p-5 rounded-2xl w-full space-y-4 shadow-lg"
             key={idx}
