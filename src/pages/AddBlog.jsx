@@ -35,9 +35,9 @@ const AddBlog = () => {
   };
 
   return (
-    <div>
-    { isLoading ? <UseLoading/> : <div className="w-10/12 mx-auto my-10 md:my-20">
-      <h2 className="text-3xl md:text-5xl text-center font-semibold mb-10 ">
+    <div className="min-h-[60vh]">
+    { isLoading ? <UseLoading/> : <div className="w-10/12 mx-auto my-10 md:my-16">
+    <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center  mb-10 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Add Your Blog Here
       </h2>
       <form onSubmit={handleAddBlog} className="space-y-8">

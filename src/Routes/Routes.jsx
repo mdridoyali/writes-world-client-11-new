@@ -9,6 +9,7 @@ import AddBlog from "../pages/AddBlog";
 import AllBlogs from "../pages/AllBlogs";
 import FeaturedBlogs from "../pages/FeaturedBlogs";
 import WishList from "../pages/WishList";
+import BlogDetails from "../pages/BlogDetails";
 
 
 const routes = createBrowserRouter([
@@ -40,6 +41,11 @@ const routes = createBrowserRouter([
         {
             path: '/about',
             element: <About></About>
+        },
+        {
+            path: '/blogDetails/:id',
+            element: <BlogDetails></BlogDetails>,
+            loader : ({params}) => fetch(`${params.id}`)
         },
       ]
     },

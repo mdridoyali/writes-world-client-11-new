@@ -6,6 +6,7 @@ import UseLoading from "./../hooks/UseLoading";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { user } = useAuth();
@@ -37,6 +38,9 @@ const Home = () => {
       });
   };
 
+
+
+
   return (
     <div>
       {isLoading ? (
@@ -67,9 +71,11 @@ const Home = () => {
                     <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
                       {item.category}
                     </p>
-                    <button className="btn btn-sm btn-accent  rounded-full text-white">
+                    <Link  to={`/blogDetails/${item._id}`}>
+                    <button  className="btn btn-sm btn-accent  rounded-full text-white">
                       Details
-                    </button>{" "}
+                    </button>
+                    </Link>
                   </div>
                   <br />
                   <button

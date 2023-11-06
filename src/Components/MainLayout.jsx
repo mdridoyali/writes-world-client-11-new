@@ -128,7 +128,7 @@ const MainLayout = ({ children }) => {
                   className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-slate-200 py-5 space-y-4   rounded-box w-52"
                 >
                  { user && <li className="btn-ghost rounded-full hover:outline-none border-none btn-active hover:btn-accent ">
-                    <a className=" text-xl hover:text-white ">
+                    <a className=" text-lg font-semibold hover:text-white ">
                       {user?.displayName && user?.displayName }
                     </a>
                   </li>}

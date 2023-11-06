@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import UseLoading from "../hooks/UseLoading";
-import useAuth from './../hooks/useAuth';
+import useAuth from "./../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 const AllBlogs = () => {
-  const {user} = useAuth()
-  const email = user?.email || '';
+  const { user } = useAuth();
+  const email = user?.email || "";
   const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -42,17 +43,29 @@ const AllBlogs = () => {
         `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
       ).then((res) => res.json()),
   });
+  if (isLoading) {
+    return <UseLoading />;
+  }
   // console.log(data);
 
   const handleAddToWishlist = (item) => {
     const { title, image, short_desc, long_desc, category, postedTime } = item;
-     const wishListData = { title, image, short_desc, long_desc, category, postedTime, email }
+    const wishListData = {
+      title,
+      image,
+      short_desc,
+      long_desc,
+      category,
+      postedTime,
+      email,
+    };
     console.log(wishListData);
-    axios.post('http://localhost:5000/wishlistBlogs', wishListData)
-    .then(res => {
-      console.log(res.data)
-      toast.success('Added to the Wishlist', { duration: 3000} )
-    })
+    axios
+      .post("http://localhost:5000/wishlistBlogs", wishListData)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Added to the Wishlist", { duration: 3000 });
+      });
   };
 
   return (
@@ -61,9 +74,10 @@ const AllBlogs = () => {
         <UseLoading />
       ) : (
         <div className=" my-12">
-          <h2 className="text-3xl md:text-5xl text-center font-semibold ">
+          <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
             All The Blogs
           </h2>
+
           <div className=" w-11/12 mx-auto gap-5 md:gap-20 lg:gap-72 flex flex-col md:flex-row justify-between  my-6">
             <form onSubmit={handleSearch} className="relative">
               <input
@@ -120,9 +134,12 @@ const AllBlogs = () => {
                   </button>
                   <div className=" hover:border-orange-400 border border-white p-1 mb- rounded-full">
                     {" "}
-                    <button className="btn btn-sm btn-accent  rounded-full text-white">
-                      Details
-                    </button>
+                    <Link  to={`/blogDetails/${item._id}`}>
+                      {" "}
+                      <button className="btn btn-sm btn-accent  rounded-full text-white">
+                        Details
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
