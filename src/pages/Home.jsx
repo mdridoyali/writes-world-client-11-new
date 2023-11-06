@@ -3,15 +3,40 @@ import { FaRegHeart } from "react-icons/fa";
 import Banner from "../shared/Banner";
 // import UseLoading from '../hooks/UseLoading';
 import UseLoading from "./../hooks/UseLoading";
+import axios from "axios";
+import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const { user } = useAuth();
+  const email = user?.email || "";
   const { data, isLoading, isError } = useQuery({
     queryKey: ["blogsInHome"],
     queryFn: () =>
       fetch("http://localhost:5000/blogsForHome").then((res) => res.json()),
   });
   console.log(data, isLoading, isError);
-  
+
+  const handleAddToWishlist = (item) => {
+    const { title, image, short_desc, long_desc, category, postedTime } = item;
+    const wishListData = {
+      title,
+      image,
+      short_desc,
+      long_desc,
+      category,
+      postedTime,
+      email,
+    };
+    console.log(wishListData);
+    axios
+      .post("http://localhost:5000/wishlistBlogs", wishListData)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Added to the Wishlist", { duration: 3000 });
+      });
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -47,8 +72,12 @@ const Home = () => {
                     </button>{" "}
                   </div>
                   <br />
-                  <button className="btn btn-sm  border-orange-400 rounded-full">
-                    Add To WishList <FaRegHeart className="text-red-500 text-lg " ></FaRegHeart>
+                  <button
+                    onClick={() => handleAddToWishlist(item)}
+                    className="btn btn-sm  border-orange-400 rounded-full"
+                  >
+                    Add To WishList{" "}
+                    <FaRegHeart className="text-red-500 text-lg "></FaRegHeart>
                   </button>
                   <p>Posted date: {item.postedTime}</p>
                 </div>
