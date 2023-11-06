@@ -16,7 +16,7 @@ const Banner = () => {
           <br />
           <p>Explore our all blogs</p> <br />
           <Link to={"/allBlogs"}>
-            <button className="md:text-2xl  rounded-full font-bold btn border-none text-white bg-gradient-to-r from-violet-600 to-amber-500">
+            <button className="md:text-2xl  rounded-full font-bold btn border-none transition-all  ease-linear hover:pr-10 text-white bg-gradient-to-r from-violet-600 to-amber-500">
               Explore More
             </button>
           </Link>

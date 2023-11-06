@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { FaRegHeart } from "react-icons/fa";
 import Banner from "../shared/Banner";
 // import UseLoading from '../hooks/UseLoading';
 import UseLoading from "./../hooks/UseLoading";
@@ -10,7 +11,7 @@ const Home = () => {
       fetch("http://localhost:5000/blogsForHome").then((res) => res.json()),
   });
   console.log(data, isLoading, isError);
-
+  
   return (
     <div>
       {isLoading ? (
@@ -18,10 +19,10 @@ const Home = () => {
       ) : (
         <div>
           <Banner />
-          <h1 className="text-transparent text-3xl font-semibold md:text-7xl text-center my-7 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
+          <h1 className="text-transparent text-3xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
             Recent Posts
           </h1>
-          <div className="w-11/12 grid gap-5 grid-cols-1 lg:grid-cols-2 mx-auto  ">
+          <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
             {data.map((item, idx) => (
               <div
                 className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
@@ -47,9 +48,9 @@ const Home = () => {
                   </div>
                   <br />
                   <button className="btn btn-sm  border-orange-400 rounded-full">
-                    Add To WishList
+                    Add To WishList <FaRegHeart className="text-red-500 text-lg " ></FaRegHeart>
                   </button>
-                  <p>{item.timestamp}</p>
+                  <p>Posted date: {item.postedTime}</p>
                 </div>
               </div>
             ))}
