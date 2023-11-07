@@ -1,16 +1,18 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import About from "../pages/About";
-import ErrorPage from './../pages/ErrorPage';
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Home from "../pages/Home";
-import AddBlog from "../pages/AddBlog";
-import AllBlogs from "../pages/AllBlogs";
-import FeaturedBlogs from "../pages/FeaturedBlogs";
-import WishList from "../pages/WishList";
-import BlogDetails from "../pages/BlogDetails";
-import DetailsWishlist from './../pages/DetailsWishlist';
+import { createBrowserRouter } from "react-router-dom";  
+import App from "../App";  
+import About from "../pages/About";  
+import ErrorPage from './../pages/ErrorPage';  
+import Login from "../pages/Login";  
+import Register from "../pages/Register";  
+import Home from "../pages/Home";  
+import AddBlog from "../pages/AddBlog";  
+import AllBlogs from "../pages/AllBlogs";  
+import FeaturedBlogs from "../pages/FeaturedBlogs";  
+import WishList from "../pages/WishList";  
+import BlogDetails from "../pages/BlogDetails";  
+import DetailsWishlist from './../pages/DetailsWishlist';  
+import UpdateBlog from "../pages/UpdateBlog";  
+import UpdateAll from "../pages/UpdateAll";
 
 
 const routes = createBrowserRouter([
@@ -51,6 +53,16 @@ const routes = createBrowserRouter([
         {
             path: '/detailsWishlist/:id',
             element: <DetailsWishlist></DetailsWishlist>,
+            loader : ({params}) => fetch(`${params.id}`)
+        },
+        {
+            path: '/updateBlog/:id',
+            element: <UpdateBlog></UpdateBlog>,
+            loader : ({params}) => fetch(`${params.id}`)
+        },
+        {
+            path: '/updateAll/:id',
+            element: <UpdateAll></UpdateAll>,
             loader : ({params}) => fetch(`${params.id}`)
         },
 

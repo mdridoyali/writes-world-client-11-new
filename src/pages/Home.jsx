@@ -10,7 +10,7 @@ import NewsLetter from "../Components/NewsLetter";
 
 const Home = () => {
   const { user } = useAuth();
-  const email = user?.email || "";
+  const wishlist_email = user?.email || "";
   const { data, isLoading, isError } = useQuery({
     queryKey: ["blogsInHome"],
     queryFn: () =>
@@ -19,7 +19,7 @@ const Home = () => {
   console.log(data, isLoading, isError);
 
   const handleAddToWishlist = (item) => {
-    const { title, image, short_desc, long_desc, category, postedTime } = item;
+    const { title, image, short_desc, long_desc, category, postedTime, email } = item;
     const wishListData = {
       title,
       image,
@@ -28,6 +28,7 @@ const Home = () => {
       category,
       postedTime,
       email,
+      wishlist_email
     };
     console.log(wishListData);
     axios

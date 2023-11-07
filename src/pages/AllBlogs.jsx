@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 const AllBlogs = () => {
   const { user } = useAuth();
-  const email = user?.email || "";
+  const wishlist_email = user?.email || "";
   const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -64,7 +64,7 @@ const AllBlogs = () => {
   // console.log(data);
 
   const handleAddToWishlist = (item) => {
-    const { title, image, short_desc, long_desc, category, postedTime } = item;
+    const { title, image, short_desc, long_desc, category, postedTime, email } = item;
     const wishListData = {
       title,
       image,
@@ -73,6 +73,7 @@ const AllBlogs = () => {
       category,
       postedTime,
       email,
+      wishlist_email
     };
     console.log(wishListData);
     axios

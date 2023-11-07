@@ -1,12 +1,14 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import UseLoading from "../hooks/UseLoading";
+import useAuth from "../hooks/useAuth";
 // import { useEffect, useState } from "react";
 const DetailsWishlist = () => {
     const { id } = useParams();
-  // const [data, setData] = useState([])
-
+    const {user} = useAuth()
+    const email = user?.email
+   
   const { data, isLoading} = useQuery({
     queryKey: ["blogsInDetails", id],
     queryFn: () =>
@@ -14,11 +16,11 @@ const DetailsWishlist = () => {
         res.json()
       ),
   });
-
-  console.log(data);
   if (isLoading) {
     return <UseLoading />;
   }
+console.log(email, data?.email)
+
 
   return (
     <div>
@@ -26,20 +28,32 @@ const DetailsWishlist = () => {
         Blog Details{" "}
       </h2>
       <div className="w-8/12 my-14 mx-auto  ">
-        <div className="border  rounded-2xl w-full space-y-4 shadow-lg">
+        <div className=" p-4 bg-slate-200 rounded-2xl w-full space-y-4 shadow-lg">
           <img
-            className="w-full p-5 hover:shadow-2xl  rounded-xl"
+            className="w-full hover:shadow-2xl  rounded-xl"
             src={data.image}
           />
-          <h3>{data.category}</h3>
-          <div className="flex justify-end items-center">
-            <button
-              // onClick={() => handleDelete(item._id)}
+          <h2 className="border w-max px-5 py-[2px] rounded-full border-orange-400">
+            {data.category}
+          </h2>
+          <h2 className="font-bold text-xl ">
+            {data.title}
+          </h2>
+          <p className=" ">
+            {data.short_desc}
+          </p>
+          <p className=" ">
+            {data.long_desc}
+          </p>
+        { data?.email === email && <div className="flex justify-end items-center">
+           <Link to={`/updateBlog/${data._id}`} >  
+           <button
               className="btn btn-sm  border-orange-400 rounded-full"
             >
               Update
             </button>
-          </div>
+           </Link>
+          </div>}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import UseLoading from "../hooks/UseLoading";
 import useAuth from "../hooks/useAuth";
 
@@ -44,12 +44,13 @@ const BlogDetails = () => {
             {data.long_desc}
           </p>
         { data?.email === email && <div className="flex justify-end items-center">
-            <button
-              // onClick={() => handleDelete(item._id)}
+        <Link to={`/updateAll/${data._id}`} >  
+           <button
               className="btn btn-sm  border-orange-400 rounded-full"
             >
               Update
             </button>
+           </Link>
           </div>}
         </div>
       </div>
