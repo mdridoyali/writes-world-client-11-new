@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -122,16 +122,6 @@ useEffect(() => {
 export default WishList;
 
 
-//   const { data, isLoading } = useQuery({
-//     queryKey: ["wishlistBlogsByEmail"],
-//     queryFn: () =>
-//       fetch(`http://localhost:5000/wishlistBlogs?email=${email}`).then((res) =>
-//         res.json()
-//       ),
-//   });
-
-
-// useEffect(() => {
 //     // Check if the data exists in localStorage and load it if available
 //     const storedData = localStorage.getItem('wishlistData');
 //     if (storedData) {

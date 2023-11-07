@@ -55,7 +55,7 @@ const UpdateAll = () => {
         return toast.success('Updated the Blog')
       }
     })
-    // e.target.reset();
+    e.target.reset();
   };
 
   return (
