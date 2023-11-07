@@ -10,6 +10,7 @@ import AllBlogs from "../pages/AllBlogs";
 import FeaturedBlogs from "../pages/FeaturedBlogs";
 import WishList from "../pages/WishList";
 import BlogDetails from "../pages/BlogDetails";
+import DetailsWishlist from './../pages/DetailsWishlist';
 
 
 const routes = createBrowserRouter([
@@ -47,6 +48,12 @@ const routes = createBrowserRouter([
             element: <BlogDetails></BlogDetails>,
             loader : ({params}) => fetch(`${params.id}`)
         },
+        {
+            path: '/detailsWishlist/:id',
+            element: <DetailsWishlist></DetailsWishlist>,
+            loader : ({params}) => fetch(`${params.id}`)
+        },
+
       ]
     },
     {

@@ -13,37 +13,52 @@ const AllBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [loader, setLoader] = useState(true)
 
   const handleCategory = (e) => {
     setSelectedCategory(e.target.value);
     console.log(e.target.value);
   };
+  // const handleSearchInput = (e) => {
+  //   setSearchValue(e.target.searchValue.value);
+  //   console.log(e.target.value);
+  // };
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(e.target.searchValue.value)
+    setLoader(true)
+    setSearchValue(e.target.searchValue.value)
     fetch(
       `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
     )
       .then((res) => res.json())
-      .then((data) => setBlogs(data));
+      .then((data) => {
+        setBlogs(data)
+        setLoader(false)
+      });
   };
 
   useEffect(() => {
+    setLoader(true)
     fetch(
       `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
     )
       .then((res) => res.json())
-      .then((data) => setBlogs(data));
+      .then((data) => {
+        setBlogs(data)
+        setLoader(false)
+      });
   }, [searchValue, selectedCategory]);
 
-  const { data, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["allBlogs"],
     queryFn: () =>
       fetch(
         `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
       ).then((res) => res.json()),
   });
-  if (isLoading) {
+  if (isLoading || loader) {
     return <UseLoading />;
   }
   // console.log(data);
@@ -84,8 +99,8 @@ const AllBlogs = () => {
                 type="text"
                 name="searchValue"
                 placeholder="Search by title"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                // value={searchValue}
+                // onClick={handleSearchInput}
                 className="rounded-full h-12 w-full outline-none border pl-5 pr-20 border-orange-400"
               />
               <button
@@ -109,38 +124,42 @@ const AllBlogs = () => {
               <option value="Lifestyle">Lifestyle</option>
             </select>
           </div>
-          <div className="w-11/12 grid gap-10 md:grid-cols-2 lg:grid-cols-3 mx-auto  ">
+          <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
             {blogs.map((item, idx) => (
               <div
-                className="border p-5 rounded-2xl w-full space-y-4 shadow-lg"
+                className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
                 key={idx}
               >
-                <img
-                  className="w-full hover:shadow-2xl  rounded-xl"
-                  src={item.image}
-                />
-                <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
-                  {item.category}
-                </p>
-                <p className="font-semibold text-xl">{item.title}</p>
-                <p>{item.short_desc}</p>
-                <div className="flex justify-between items-center">
-                  <button
-                    onClick={() => handleAddToWishlist(item)}
-                    className="btn btn-sm  border-orange-400 rounded-full"
-                  >
-                    Add To WishList
-                    <FaRegHeart className="text-red-500 text-lg "></FaRegHeart>
-                  </button>
-                  <div className=" hover:border-orange-400 border border-white p-1 mb- rounded-full">
-                    {" "}
+                <div className="flex-1">
+                  {" "}
+                  <img
+                    className="w-full h-72 md:h-96 lg:h-64 hover:shadow-2xl  rounded-xl"
+                    src={item.image}
+                  />
+                </div>
+                <div className="space-y-2 flex justify-between flex-col flex-1">
+                  <p className="font-semibold text-xl">{item.title}</p>
+                  <p className="pb-2">{item.short_desc}</p>
+                  <div className="flex gap-2">
+                    <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
+                      {item.category}
+                    </p>
                     <Link  to={`/blogDetails/${item._id}`}>
-                      {" "}
-                      <button className="btn btn-sm btn-accent  rounded-full text-white">
-                        Details
-                      </button>
+                    <button  className="btn btn-sm btn-accent  rounded-full text-white">
+                      Details
+                    </button>
                     </Link>
                   </div>
+                 <div className="pt-2">
+                 <button
+                    onClick={() => handleAddToWishlist(item)}
+                    className="btn btn-sm  border-orange-400  rounded-full"
+                  >
+                    Add To WishList{" "}
+                    <FaRegHeart className="text-red-500 text-lg "></FaRegHeart>
+                  </button>
+                 </div>
+                  <p className="text-sm">Posted date: {item.postedTime}</p>
                 </div>
               </div>
             ))}

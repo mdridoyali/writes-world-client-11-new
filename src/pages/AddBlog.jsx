@@ -30,8 +30,9 @@ const AddBlog = () => {
     .then((response) => {
       console.log(response.data);
         return toast.success('Blog Added')
+       
     })
-
+  e.target.reset();
   };
 
   return (
@@ -96,7 +97,7 @@ const AddBlog = () => {
             rows={12}
             name="long_desc"
             cols={10}
-            className="input h-40 md:h-28 input-bordered "
+            className="input h-72 md:h-48 input-bordered "
           ></textarea>
         </div>
         <div className="form-control mt-2">

@@ -1,61 +1,92 @@
 import { useQuery } from "@tanstack/react-query";
-import UseLoading from "../hooks/UseLoading";
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UseLoading from "../hooks/UseLoading";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const WishList = () => {
-    const [data , setData] = useState([])
+
+    const [wishlist , setWishlist] = useState([]);
+    const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const email = user?.email;
-  console.log(email);
 
-//   const { data, isLoading } = useQuery({
-//     queryKey: ["wishlistBlogsByEmail"],
-//     queryFn: () =>
-//       fetch(`http://localhost:5000/wishlistBlogs?email=${email}`).then((res) =>
-//         res.json()
-//       ),
-//   });
+useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:5000/wishlistBlogs?email=${email}`)
+      .then((res) => {
+        console.log(res.data);
+        setWishlist(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, [email]);
 
- useEffect(() => {
-    axios.get(`http://localhost:5000/wishlistBlogs?email=${email}`)
-    .then(res => {
-        console.log(res.data)
-        setData(res.data)
-    })
- }, [email])
 
-//   if (isLoading) {
-//     return <UseLoading />;
-//   }
-//   console.log(data);
+
+  if(loading){
+   return <UseLoading/>
+  }
+
+  // const handleDelete = (id) => {
+  //   console.log(id);
+  //   axios.delete("http://localhost:5000/wishlistBlogs", id)
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   ;
+  // };
 
   const handleDelete = (id) => {
     console.log(id);
-    axios.delete("http://localhost:5000/wishlistBlogs", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this Wishlist",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete("http://localhost:5000/wishlistBlogs", id)
+          .then((data) => {
+            console.log(data);
+            if (data.data.deletedCount > 0) {
+              Swal.fire("Deleted!", "Your Wishlist has been deleted.", "success");
+              const remaining = wishlist.filter((item) => item._id !== id);
+              setWishlist(remaining);
+            }
+          });
+      }
+    });
   };
 
   return (
-    <div className="min-h-[60vh]">
+    <div className="min-h-[60vh] mb-20">
       <h1 className="text-transparent text-3xl font-semibold md:text-7xl text-center mt-8 mb-3 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Your WishLists
       </h1>
       <div className="text-center text-xl mb-10">
-        {data.length === 0 && (
+        {wishlist.length === 0 && (
           <span>You have not added any blog to the Wish List</span>
         )}
       </div>
 
       <div className="w-11/12 grid gap-10 md:grid-cols-2 lg:grid-cols-3 mx-auto  ">
-        {data.map((item, idx) => (
+        {wishlist.map((item, idx) => (
           <div
             className="border p-5 rounded-2xl w-full space-y-4 shadow-lg"
             key={idx}
           >
             <img
-              className="w-full hover:shadow-2xl  rounded-xl"
+              className="w-full h-72 hover:shadow-2xl  rounded-xl"
               src={item.image}
             />
             <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
@@ -71,13 +102,15 @@ const WishList = () => {
                 Delete
               </button>
               <div className=" hover:border-orange-400 border border-white p-1 mb- rounded-full">
-                {" "}
-                <Link  to={`/blogDetails/${item._id}`}>
-                  <button className="btn btn-sm btn-accent  rounded-full text-white">
-                    Details
-                  </button>
-                </Link>
-              </div>
+                    {" "}
+                    <Link  to={`/detailsWishlist/${item._id}`}>
+                      {" "}
+                      <button className="btn btn-sm btn-accent  rounded-full text-white">
+                        Details
+                      </button>
+                    </Link>
+                  </div>
+             
             </div>
           </div>
         ))}
@@ -87,3 +120,41 @@ const WishList = () => {
 };
 
 export default WishList;
+
+
+//   const { data, isLoading } = useQuery({
+//     queryKey: ["wishlistBlogsByEmail"],
+//     queryFn: () =>
+//       fetch(`http://localhost:5000/wishlistBlogs?email=${email}`).then((res) =>
+//         res.json()
+//       ),
+//   });
+
+
+// useEffect(() => {
+//     // Check if the data exists in localStorage and load it if available
+//     const storedData = localStorage.getItem('wishlistData');
+//     if (storedData) {
+//       setData(JSON.parse(storedData));
+//       setLoading(false);
+//     } else {
+//       // Set loading to true before making the Axios request
+//       setLoading(true);
+
+//       axios
+//         .get(`http://localhost:5000/wishlistBlogs?email=${email}`)
+//         .then((res) => {
+//           console.log(res.data);
+//           setData(res.data);
+//           // Save the data to localStorage
+//           localStorage.setItem('wishlistData', JSON.stringify(res.data));
+//           // Set loading to false after the data is fetched
+//           setLoading(false);
+//         })
+//         .catch((error) => {
+//           // Handle error, and also set loading to false in case of an error
+//           console.error('Error fetching data:', error);
+//           setLoading(false);
+//         });
+//     }
+//   }, [email]);

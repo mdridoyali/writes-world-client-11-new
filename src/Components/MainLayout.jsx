@@ -18,7 +18,7 @@ const MainLayout = ({ children }) => {
               <label
                 htmlFor="my-drawer-3"
                 aria-label="open sidebar"
-                className="btn btn-square btn-ghost"
+                className="btn btn-circle "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,11 @@ const MainLayout = ({ children }) => {
                 </svg>
               </label>
             </div>
-            <div className="flex-1 px-2 mx-2">
+            <div className="flex-1   px-2 md:mx-2">
+              <img
+                className="w-8 md:w-14"
+                src={"https://i.ibb.co/nM1gpGH/Screenshot-5.jpg"}
+              />
               <h1 className="text-transparent text-2xl md:text-5xl font-bold bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
                 Writes World
               </h1>
@@ -106,7 +110,9 @@ const MainLayout = ({ children }) => {
                 </NavLink>
               </div>
             </div>
-            <div className="px-3"><Theme /></div>
+            <div className="md:px-3">
+              <Theme />
+            </div>
             <div className=" ">
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -127,22 +133,45 @@ const MainLayout = ({ children }) => {
                   tabIndex={0}
                   className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-slate-200 py-5 space-y-4   rounded-box w-52"
                 >
-                 { user && <li className="btn-ghost rounded-full hover:outline-none border-none btn-active hover:btn-accent ">
-                    <a className=" text-lg font-semibold hover:text-white ">
-                      {user?.displayName && user?.displayName }
-                    </a>
-                  </li>}
+                  {user && (
+                    <li className="btn-ghost rounded-full hover:outline-none border-none btn-active hover:btn-accent ">
+                      <a className=" text-lg font-semibold hover:text-white ">
+                        {user?.displayName && user?.displayName}
+                      </a>
+                    </li>
+                  )}
                   <li>
-                    { !user && <Link className="text-lg rounded-full  btn-active  hover:outline-none btn-ghost hover:btn-accent hover:text-white " to={"/register"}>
-                      Register
-                    </Link>}
+                    {!user && (
+                      <Link
+                        className="text-lg rounded-full  btn-active  hover:outline-none btn-ghost hover:btn-accent hover:text-white "
+                        to={"/register"}
+                      >
+                        Register
+                      </Link>
+                    )}
                   </li>
                   <li>
                     {user ? (
-                      <button onClick={() => logOutUser()} className="text-lg rounded-full btn-ghost  hover:outline-none border-none btn-active hover:btn-accent hover:text-white "><span>Logout</span><span className="text-base"><FaSignOutAlt/></span></button>
+                      <button
+                        onClick={() => logOutUser()}
+                        className="text-lg rounded-full btn-ghost  hover:outline-none border-none btn-active hover:btn-accent hover:text-white "
+                      >
+                        <span>Logout</span>
+                        <span className="text-base">
+                          <FaSignOutAlt />
+                        </span>
+                      </button>
                     ) : (
-                      <Link className="text-lg rounded-full hover:outline-none btn-ghost btn-active hover:btn-accent hover:text-white " to={"/login"}>
-                        <button className="flex items-center gap-2"><span>Login</span><span className="text-base"><FaSignInAlt/></span></button>
+                      <Link
+                        className="text-lg rounded-full hover:outline-none btn-ghost btn-active hover:btn-accent hover:text-white "
+                        to={"/login"}
+                      >
+                        <button className="flex items-center gap-2">
+                          <span>Login</span>
+                          <span className="text-base">
+                            <FaSignInAlt />
+                          </span>
+                        </button>
                       </Link>
                     )}
                   </li>
@@ -226,7 +255,7 @@ const MainLayout = ({ children }) => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
