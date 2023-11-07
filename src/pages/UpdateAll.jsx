@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 
 const UpdateAll = () => {
-    const { user } = useAuth();
-    const email = user?.email || "";
+  const { user } = useAuth();
+  const email = user?.email || "";  
   const { id } = useParams();
   const postedTime = new Date();
 
@@ -20,7 +20,9 @@ const UpdateAll = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["updateBlog", id],
     queryFn: () =>
-      fetch(`http://localhost:5000/detailsBlogs/${id}`).then((res) => res.json()),
+      fetch(`http://localhost:5000/detailsBlogs/${id}`).then((res) =>
+        res.json()
+      ),
   });
 
   if (isLoading) {
@@ -29,7 +31,7 @@ const UpdateAll = () => {
   if (loading) {
     return <UseLoading />;
   }
-  const handleAddBlog = (e) => {
+  const handleUpdateBlog = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const image = e.target.image.value;
@@ -43,17 +45,17 @@ const UpdateAll = () => {
       category,
       long_desc,
       postedTime,
-      email
+      email,
     };
-    console.log(blogDetails);
-
-    axios
-      .post("http://localhost:5000/allBlogs", blogDetails)
-      .then((response) => {
-        console.log(response.data);
-        return toast.success("Updated Blog");
-      });
-    e.target.reset();
+    // console.log(blogDetails);
+    axios.put(`http://localhost:5000/updateBlog/${id}`, blogDetails)
+    .then(res => {
+      console.log(res.data)
+      if(res.data.modifiedCount > 0){
+        return toast.success('Updated the Blog')
+      }
+    })
+    // e.target.reset();
   };
 
   return (
@@ -62,7 +64,7 @@ const UpdateAll = () => {
         <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center  mb-10 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           Update Your Blog Here
         </h2>
-        <form onSubmit={handleAddBlog} className="space-y-8">
+        <form onSubmit={handleUpdateBlog} className="space-y-8">
           <div className="flex gap-7 flex-col md:flex-row ">
             <div className="form-control flex-1">
               <input
@@ -97,17 +99,17 @@ const UpdateAll = () => {
               />
             </div>
             <div className="form-control flex-1">
-                <select
-              name="category"
-              defaultValue={data.category}
-              className="input input-bordered rounded-full"
-            >
-              {categories.map((item) => (
-                <option key={item._id} value={item.category}>
-                  {item.category}
-                </option>
-              ))}
-            </select>
+              <select
+                name="category"
+                defaultValue={data.category}
+                className="input input-bordered rounded-full"
+              >
+                {categories.map((item) => (
+                  <option key={item._id} value={item.category}>
+                    {item.category}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="form-control">

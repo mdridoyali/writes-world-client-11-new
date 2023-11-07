@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import UseLoading from "../hooks/UseLoading";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
 // import { useEffect, useState } from "react";
 const DetailsWishlist = () => {
     const { id } = useParams();
@@ -19,7 +20,6 @@ const DetailsWishlist = () => {
   if (isLoading) {
     return <UseLoading />;
   }
-console.log(email, data?.email)
 
 
   return (
