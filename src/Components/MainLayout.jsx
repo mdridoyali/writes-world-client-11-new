@@ -9,6 +9,7 @@ const MainLayout = ({ children }) => {
   const { user, logOutUser } = useAuth();
   return (
     <div>
+      
       <div className="drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">

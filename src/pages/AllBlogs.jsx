@@ -86,11 +86,9 @@ const AllBlogs = () => {
 
   return (
     <div>
-      {isLoading ? (
-        <UseLoading />
-      ) : (
+   
         <div className=" my-12">
-          <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
+          <h2 className="text-transparent pb-3 text-3xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
             All The Blogs
           </h2>
 
@@ -166,7 +164,7 @@ const AllBlogs = () => {
             ))}
           </div>
         </div>
-      )}
+    
     </div>
   );
 };

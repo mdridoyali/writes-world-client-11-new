@@ -53,7 +53,7 @@ if(isLoading){
             Recent Posts
           </h1>
           <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
-            {data.map((item, idx) => (
+            {data?.map((item, idx) => (
               <div
                 className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
                 key={idx}

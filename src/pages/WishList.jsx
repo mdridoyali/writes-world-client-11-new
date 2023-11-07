@@ -34,15 +34,6 @@ useEffect(() => {
    return <UseLoading/>
   }
 
-  // const handleDelete = (id) => {
-  //   console.log(id);
-  //   axios.delete("http://localhost:5000/wishlistBlogs", id)
-  //   .then(res => {
-  //     console.log(res)
-  //   })
-  //   ;
-  // };
-
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
@@ -70,7 +61,7 @@ useEffect(() => {
 
   return (
     <div className="min-h-[60vh] mb-20">
-      <h1 className="text-transparent text-3xl font-semibold md:text-7xl text-center mt-8 mb-3 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
+      <h1 className="text-transparent text-3xl pb-3 font-semibold md:text-7xl text-center mt-8 mb-3 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Your WishLists
       </h1>
       <div className="text-center text-xl mb-10">
@@ -121,30 +112,3 @@ useEffect(() => {
 
 export default WishList;
 
-
-//     // Check if the data exists in localStorage and load it if available
-//     const storedData = localStorage.getItem('wishlistData');
-//     if (storedData) {
-//       setData(JSON.parse(storedData));
-//       setLoading(false);
-//     } else {
-//       // Set loading to true before making the Axios request
-//       setLoading(true);
-
-//       axios
-//         .get(`http://localhost:5000/wishlistBlogs?email=${email}`)
-//         .then((res) => {
-//           console.log(res.data);
-//           setData(res.data);
-//           // Save the data to localStorage
-//           localStorage.setItem('wishlistData', JSON.stringify(res.data));
-//           // Set loading to false after the data is fetched
-//           setLoading(false);
-//         })
-//         .catch((error) => {
-//           // Handle error, and also set loading to false in case of an error
-//           console.error('Error fetching data:', error);
-//           setLoading(false);
-//         });
-//     }
-//   }, [email]);
