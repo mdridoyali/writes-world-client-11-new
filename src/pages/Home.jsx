@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import NewsLetter from "../Components/NewsLetter";
 import Footer from "../shared/Footer";
 import About from "./About";
+import OurCategory from "../Components/OurCategory";
+// import useHover from './../hooks/useHover';
+import { motion } from 'framer-motion';
 
 
 const Home = () => {
@@ -57,7 +60,9 @@ if(isLoading){
           </h1>
           <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
             {data?.map((item, idx) => (
-              <div
+              <motion.button
+               whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
                 className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
                 key={idx}
               >
@@ -92,9 +97,19 @@ if(isLoading){
                  </div>
                   <p className="text-sm">Posted date: {item.postedTime}</p>
                 </div>
-              </div>
+              </motion.button>
             ))}
           </div>
+          {/* <motion.button
+            key={item._id}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="mb-5"
+          > */}
+
+
+          <OurCategory/>
+          <useHover/>
           <About/>
            <NewsLetter/>
         </div>

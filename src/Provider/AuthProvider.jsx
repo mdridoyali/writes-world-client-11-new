@@ -47,13 +47,13 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       console.log("current user", userEmail);
       setLoader(false);
-
+      console.log(currentUser);
       if (currentUser) {
         //  const loggedUser = {email: currentUser?.email}
-        console.log(currentUser)
+
         axios
           .post(
-            "https://assignment-11-jwt-server.vercel.app/jwt",
+            "https://assignment-11-jwt-server.vercel.app/jwtS",
             { email: userEmail },
             { withCredentials: true }
           )

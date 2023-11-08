@@ -121,7 +121,7 @@ const MainLayout = ({ children }) => {
               </div>
             </div>
             <div className="md:px-3">
-              <Theme />
+              {/* <Theme /> */}
             </div>
             <div className=" ">
               <div className="dropdown dropdown-end">
@@ -199,11 +199,11 @@ const MainLayout = ({ children }) => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="menu bg-white space-y-5 mt-[0px] p-5 w-9/12 h-screen  md:w-7/12 ">
+          <div className="menu bg-white space-y-5 mt-[0px] p-5 w-9/12 min-h-screen  md:w-7/12 ">
             {/* Sidebar menu content here */}
             <p className="m-2"></p>
             <NavLink
-             onClick={closeSidebar} 
+            //  onClick={closeSidebar} 
               to={"/"}
               className={({ isActive }) =>
                 isActive
@@ -215,7 +215,7 @@ const MainLayout = ({ children }) => {
               Home
             </NavLink>
             <NavLink
-            onClick={closeSidebar} 
+            // onClick={closeSidebar} 
               to={"/addBlog"}
               className={({ isActive }) =>
                 isActive
@@ -226,7 +226,7 @@ const MainLayout = ({ children }) => {
               Add Blog
             </NavLink>
             <NavLink
-            onClick={closeSidebar} 
+            // onClick={closeSidebar} 
               to={"/allBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -237,7 +237,7 @@ const MainLayout = ({ children }) => {
               All Blogs
             </NavLink>
             <NavLink
-            onClick={closeSidebar} 
+            // onClick={closeSidebar} 
               to={"/featuredBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -248,7 +248,7 @@ const MainLayout = ({ children }) => {
               Featured Blogs
             </NavLink>
             <NavLink
-            onClick={closeSidebar} 
+            // onClick={closeSidebar} 
               to={"/wishlist"}
               className={({ isActive }) =>
                 isActive
