@@ -31,7 +31,7 @@ const AllBlogs = () => {
     setLoader(true)
     setSearchValue(e.target.searchValue.value)
     fetch(
-      `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+      `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -43,7 +43,7 @@ const AllBlogs = () => {
   useEffect(() => {
     setLoader(true)
     fetch(
-      `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+      `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -56,7 +56,7 @@ const AllBlogs = () => {
     queryKey: ["allBlogs"],
     queryFn: () =>
       fetch(
-        `http://localhost:5000/allBlogs?title=${searchValue}&category=${selectedCategory}`
+        `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
       ).then((res) => res.json()),
   });
   if (isLoading || loader) {
@@ -78,7 +78,7 @@ const AllBlogs = () => {
     };
     console.log(wishListData);
     axios
-      .post("http://localhost:5000/wishlistBlogs", wishListData)
+      .post("https://assignment-11-jwt-server.vercel.app/wishlistBlogs", wishListData)
       .then((res) => {
         console.log(res.data);
         toast.success("Added to the Wishlist", { duration: 3000 });

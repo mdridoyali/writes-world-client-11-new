@@ -13,7 +13,7 @@ const AddBlog = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["category"],
     queryFn: () =>
-      fetch("http://localhost:5000/category").then((res) => res.json()),
+      fetch("https://assignment-11-jwt-server.vercel.app/category").then((res) => res.json()),
   });
 
   const handleAddBlog = (e) => {
@@ -35,7 +35,7 @@ const AddBlog = () => {
     console.log(blogDetails);
 
     axios
-      .post("http://localhost:5000/allBlogs", blogDetails)
+      .post("https://assignment-11-jwt-server.vercel.app/allBlogs", blogDetails)
       .then((response) => {
         console.log(response.data);
         return toast.success("Blog Added");

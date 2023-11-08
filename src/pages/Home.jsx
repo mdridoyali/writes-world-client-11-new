@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import NewsLetter from "../Components/NewsLetter";
 import Footer from "../shared/Footer";
+import About from "./About";
 
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["blogsInHome"],
     queryFn: () =>
-      fetch("http://localhost:5000/blogsForHome").then((res) => res.json()),
+      fetch("https://assignment-11-jwt-server.vercel.app/blogsForHome").then((res) => res.json()),
   });
   console.log(data, isLoading, isError);
 
@@ -34,7 +35,7 @@ const Home = () => {
     };
     console.log(wishListData);
     axios
-      .post("http://localhost:5000/wishlistBlogs", wishListData)
+      .post("https://assignment-11-jwt-server.vercel.app/wishlistBlogs", wishListData)
       .then((res) => {
         console.log(res.data);
         toast.success("Added to the Wishlist", { duration: 3000 });
@@ -94,6 +95,7 @@ if(isLoading){
               </div>
             ))}
           </div>
+          <About/>
            <NewsLetter/>
         </div>
      <Footer/>

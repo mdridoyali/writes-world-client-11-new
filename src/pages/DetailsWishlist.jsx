@@ -17,7 +17,7 @@ const DetailsWishlist = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["blogsInDetails", id],
     queryFn: () =>
-      fetch(`http://localhost:5000/detailsWishlist/${id}`).then((res) =>
+      fetch(`https://assignment-11-jwt-server.vercel.app/detailsWishlist/${id}`).then((res) =>
         res.json()
       ),
   });
@@ -25,7 +25,7 @@ const DetailsWishlist = () => {
   const { data: commentData, isLoading: loading } = useQuery({
     queryKey: ["allComment", id],
     queryFn: () =>
-      fetch(`http://localhost:5000/comments/${id}`).then((res) => res.json()),
+      fetch(`https://assignment-11-jwt-server.vercel.app/comments/${id}`).then((res) => res.json()),
   });
   console.log(commentData);
 
@@ -38,7 +38,7 @@ const DetailsWishlist = () => {
     const comment = e.target.comment.value;
     const commentData = { comment, email, name, userImg, id };
     // console.log(commentData)
-    axios.post("http://localhost:5000/allComment", commentData).then((res) => {
+    axios.post("https://assignment-11-jwt-server.vercel.app/allComment", commentData).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         return toast.success("Thanks for your feedback");

@@ -15,13 +15,13 @@ const UpdateBlog = () => {
   const { data: categories, isLoading: loading } = useQuery({
     queryKey: ["UpdateCategoryWishlist"],
     queryFn: () =>
-      fetch("http://localhost:5000/category").then((res) => res.json()),
+      fetch("https://assignment-11-jwt-server.vercel.app/category").then((res) => res.json()),
   });
 
   const { data, isLoading } = useQuery({
     queryKey: ["updateBlogWishlist", id],
     queryFn: () =>
-      fetch(`http://localhost:5000/detailsWishlist/${id}`).then((res) =>
+      fetch(`https://assignment-11-jwt-server.vercel.app/detailsWishlist/${id}`).then((res) =>
         res.json()
       ),
   });
@@ -52,7 +52,7 @@ const UpdateBlog = () => {
       email,
     };
     // console.log(blogDetails);
-    axios.put(`http://localhost:5000/updateBlogWishlist/${id}`, blogDetails)
+    axios.put(`https://assignment-11-jwt-server.vercel.app/updateBlogWishlist/${id}`, blogDetails)
     .then(res => {
       console.log(res.data)
       if(res.data.modifiedCount > 0){

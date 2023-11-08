@@ -3,10 +3,19 @@ import { FaHome, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import Theme from "./Theme";
 import useAuth from "../hooks/useAuth";
-import Footer from "../shared/Footer";
+import { useState } from "react";
 
 const MainLayout = ({ children }) => {
   const { user, logOutUser } = useAuth();
+
+ 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+    const closeSidebar = () => {
+      setIsSidebarOpen(false);
+    };
+  
+  
   return (
     <div>
       
@@ -99,7 +108,7 @@ const MainLayout = ({ children }) => {
                 >
                   Wishlist
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   to={"/about"}
                   className={({ isActive }) =>
                     isActive
@@ -108,7 +117,7 @@ const MainLayout = ({ children }) => {
                   }
                 >
                   About
-                </NavLink>
+                </NavLink> */}
               </div>
             </div>
             <div className="md:px-3">
@@ -184,15 +193,17 @@ const MainLayout = ({ children }) => {
           {/* Content */}
           {children}
         </div>
-        <div className="drawer-side">
+        <div className={`drawer-side ${isSidebarOpen ? 'open' : ''}`}>
           <label
             htmlFor="my-drawer-3"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="menu  space-y-5 mt-[70px] ml-1 w-72 ">
+          <div className="menu bg-white space-y-5 mt-[0px] p-5 w-9/12 h-screen  md:w-7/12 ">
             {/* Sidebar menu content here */}
+            <p className="m-2"></p>
             <NavLink
+             onClick={closeSidebar} 
               to={"/"}
               className={({ isActive }) =>
                 isActive
@@ -204,6 +215,7 @@ const MainLayout = ({ children }) => {
               Home
             </NavLink>
             <NavLink
+            onClick={closeSidebar} 
               to={"/addBlog"}
               className={({ isActive }) =>
                 isActive
@@ -214,6 +226,7 @@ const MainLayout = ({ children }) => {
               Add Blog
             </NavLink>
             <NavLink
+            onClick={closeSidebar} 
               to={"/allBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -224,6 +237,7 @@ const MainLayout = ({ children }) => {
               All Blogs
             </NavLink>
             <NavLink
+            onClick={closeSidebar} 
               to={"/featuredBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -234,6 +248,7 @@ const MainLayout = ({ children }) => {
               Featured Blogs
             </NavLink>
             <NavLink
+            onClick={closeSidebar} 
               to={"/wishlist"}
               className={({ isActive }) =>
                 isActive
@@ -243,7 +258,8 @@ const MainLayout = ({ children }) => {
             >
               Wishlist
             </NavLink>
-            <NavLink
+            {/* <NavLink
+            onClick={closeSidebar} 
               to={"/about"}
               className={({ isActive }) =>
                 isActive
@@ -252,11 +268,10 @@ const MainLayout = ({ children }) => {
               }
             >
               About
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
     </div>
   );
 };

@@ -13,6 +13,7 @@ import BlogDetails from "../pages/BlogDetails";
 import DetailsWishlist from './../pages/DetailsWishlist';  
 import UpdateBlog from "../pages/UpdateBlog";  
 import UpdateAll from "../pages/UpdateAll";
+import PrivetRoute from "./PrivetRoute";
 
 
 const routes = createBrowserRouter([
@@ -27,7 +28,7 @@ const routes = createBrowserRouter([
         },
         {
             path: '/addBlog',
-            element: <AddBlog></AddBlog>
+            element: <PrivetRoute> <AddBlog></AddBlog></PrivetRoute>
         },
         {
             path: '/allBlogs',
@@ -57,12 +58,12 @@ const routes = createBrowserRouter([
         },
         {
             path: '/updateBlog/:id',
-            element: <UpdateBlog></UpdateBlog>,
+            element: <PrivetRoute><UpdateBlog></UpdateBlog></PrivetRoute> ,
             loader : ({params}) => fetch(`${params.id}`)
         },
         {
             path: '/updateAll/:id',
-            element: <UpdateAll></UpdateAll>,
+            element: <PrivetRoute><UpdateAll></UpdateAll></PrivetRoute>  ,
             loader : ({params}) => fetch(`${params.id}`)
         },
 

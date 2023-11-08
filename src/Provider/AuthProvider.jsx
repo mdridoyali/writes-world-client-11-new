@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -29,16 +30,52 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // useEffect(() => {
+  //   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     //   console.log(currentUser);
+  //     setUser(currentUser);
+  //     setLoader(false);
+  //   });
+  //   return () => {
+  //     unSubscribe();
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      //   console.log(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
       setUser(currentUser);
+      console.log("current user", userEmail);
       setLoader(false);
+
+      if (currentUser) {
+        //  const loggedUser = {email: currentUser?.email}
+        console.log(currentUser)
+        axios
+          .post(
+            "https://assignment-11-jwt-server.vercel.app/jwt",
+            { email: userEmail },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log("token", res.data);
+          });
+      } else {
+        axios
+          .post(
+            "https://assignment-11-jwt-server.vercel.app/logout",
+            { email: userEmail },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
     return () => {
-      unSubscribe();
+      return unsubscribe();
     };
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     user,

@@ -15,13 +15,13 @@ const UpdateAll = () => {
   const { data: categories, isLoading: loading } = useQuery({
     queryKey: ["UpdateCategory"],
     queryFn: () =>
-      fetch("http://localhost:5000/category").then((res) => res.json()),
+      fetch("https://assignment-11-jwt-server.vercel.app/category").then((res) => res.json()),
   });
 
   const { data, isLoading } = useQuery({
     queryKey: ["updateBlog", id],
     queryFn: () =>
-      fetch(`http://localhost:5000/detailsBlogs/${id}`).then((res) =>
+      fetch(`https://assignment-11-jwt-server.vercel.app/detailsBlogs/${id}`).then((res) =>
         res.json()
       ),
   });
@@ -49,7 +49,7 @@ const UpdateAll = () => {
       displayName
     };
     console.log(blogDetails);
-    axios.put(`http://localhost:5000/updateBlog/${id}`, blogDetails)
+    axios.put(`https://assignment-11-jwt-server.vercel.app/updateBlog/${id}`, blogDetails)
     .then(res => {
       console.log(res.data)
       if(res.data.modifiedCount > 0){

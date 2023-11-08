@@ -17,7 +17,7 @@ const WishList = () => {
 useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/wishlistBlogs?email=${email}`)
+      .get(`https://assignment-11-jwt-server.vercel.app/wishlistBlogs?email=${email}`)
       .then((res) => {
         console.log(res.data);
         setWishlist(res.data);
@@ -47,7 +47,7 @@ useEffect(() => {
       confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete("http://localhost:5000/wishlistBlogs", id)
+        axios.delete("https://assignment-11-jwt-server.vercel.app/wishlistBlogs", id)
           .then((data) => {
             console.log(data);
             if (data.data.deletedCount > 0) {

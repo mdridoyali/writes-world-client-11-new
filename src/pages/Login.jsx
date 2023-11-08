@@ -87,6 +87,7 @@ const { logInUser } = useContext(AuthContext);
             </div>
           </div>
         </div>
+       <div className=" text-center"> <Link to={'/'} className="btn text-center mx-auto border" >Go Home</Link></div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
+// import { FaGithub } from "react-icons/fa";
 import { useState } from "react";
 import {
-  GithubAuthProvider,
+  // GithubAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
@@ -13,13 +13,13 @@ import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 const Register = () => {
-  const {createUser} = useAuth()
+  const { createUser } = useAuth();
   const [show, setShow] = useState(false);
   const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider()
+  // const githubProvider = new GithubAuthProvider();
   const navigate = useNavigate();
-  const location = useLocation()
-     
+  const location = useLocation();
+
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -29,8 +29,9 @@ const Register = () => {
     const password = form.password.value;
     // console.log(name, email, photo, password);
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!.])[A-Za-z\d@#$%^&+=!.]{6,20}$/
-    if(!passwordRegex.test(password)){
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!.])[A-Za-z\d@#$%^&+=!.]{6,20}$/;
+    if (!passwordRegex.test(password)) {
       return Swal.fire({
         icon: "error",
         title: "Invalid Password",
@@ -40,7 +41,7 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        navigate(location?.state ? location?.state : '/')
+        navigate(location?.state ? location?.state : "/");
         // console.log(result.user);
         updateProfile(result.user, {
           displayName: name,
@@ -48,46 +49,45 @@ const Register = () => {
         })
           .then((result) => console.log(result))
           .catch((error) => console.log(error));
-          form.reset()
-          
-          return toast.success('Successfully Registered', { duration: 3000} )
+        form.reset();
+
+        return toast.success("Successfully Registered", { duration: 3000 });
       })
       .catch((error) => {
         console.log(error);
-        form.reset()
-        return toast.error('Already have an account', { duration: 3000} )
+        form.reset();
+        return toast.error("Already have an account", { duration: 3000 });
       });
   };
 
- const googleLogin = () => {
+  const googleLogin = () => {
     signInWithPopup(auth, googleProvider)
-    .then((result) => {
-      console.log(result.user);
-      navigate(location?.state ? location?.state : '/')
-    })
-    .catch((error) => {
-      console.log(error);
-    });
- }
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state ? location?.state : "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
- const githubLogin = () => {
-    signInWithPopup(auth, githubProvider)
-    .then((result) => {
-      console.log(result.user);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
- }
+  // const githubLogin = () => {
+  //   signInWithPopup(auth, githubProvider)
+  //     .then((result) => {
+  //       console.log(result.user);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div className="">
       <div className="  rounded-xl    md:p-5 md:w-3/5 lg:w-2/2 mx-auto ">
         <h2 className="text-3xl font-bold text-slate-600 mt-5 text-center ">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-blue-700">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-blue-700">
             Register Now
           </span>
-         
         </h2>
         <div className=" my-5 mx-auto ">
           <div className="hero-content flex-col lg:flex-row-reverse mx-auto">
@@ -95,7 +95,9 @@ const Register = () => {
               <form onSubmit={handleRegister} className=" px-7 text-black">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Name <span className="text-red-500 text-xl" >*</span></span>
+                    <span className="label-text">
+                      Name <span className="text-red-500 text-xl">*</span>
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -107,7 +109,9 @@ const Register = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email <span className="text-red-500 text-xl" >*</span></span>
+                    <span className="label-text">
+                      Email <span className="text-red-500 text-xl">*</span>
+                    </span>
                   </label>
                   <input
                     type="email"
@@ -130,7 +134,9 @@ const Register = () => {
                 </div>
                 <div className="form-control relative">
                   <label className="label">
-                    <span className="label-text">Password <span className="text-red-500 text-xl" >*</span></span>
+                    <span className="label-text">
+                      Password <span className="text-red-500 text-xl">*</span>
+                    </span>
                   </label>
                   <span
                     onClick={() => setShow(!show)}
@@ -151,22 +157,28 @@ const Register = () => {
                     Register
                   </button>
                 </div>
+                <div className="border pb-2 text-center flex">
+                  <p className="border-b border-black flex-1"></p>
+                  <p className="font-bold text-lg">or</p>
+                  <p className="border-b border-black flex-1"></p>
+                </div>
                 <div className="">
                   <div className="space-y-3 mt-2 gap-3 justify-between">
                     <button
                       className="btn w-full btn-sm md:px-8 px-4 "
-                        onClick={googleLogin}
+                      onClick={googleLogin}
                     >
                       {"Continue with Google"}
                       <FaGoogle className="text-xl"></FaGoogle>{" "}
-                    </button> <br/>
-                    <button
+                    </button>{" "}
+                    <br />
+                    {/* <button
                       className="btn w-full  btn-sm md:px-8 px-4 "
                         onClick={githubLogin}
                     >
                       {"Continue with Github"}
                       <FaGithub className="text-xl"></FaGithub>{" "}
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <p className="text-center py-3">

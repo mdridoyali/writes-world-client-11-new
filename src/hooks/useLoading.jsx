@@ -6,7 +6,7 @@ const UseLoading = () => {
     return (
         <SkeletonTheme baseColor="#abacb3" highlightColor="#e3e3e3">
           <p>
-            <Skeleton count={20} />
+            <Skeleton count={25} />
           </p>
         </SkeletonTheme>
       );

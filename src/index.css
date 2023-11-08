@@ -4,7 +4,7 @@
 
 
 /* App.css */
-/* :root {
+:root {
     --background-color-light: #f9f9f9;
     --text-color-light: #191919;
     --background-color-dark: rgb(40, 55, 72);
@@ -20,6 +20,6 @@
   body.dark {
     background-color: var(--background-color-dark);
     color: var(--text-color-dark);
-  } */
+  }
 
 
