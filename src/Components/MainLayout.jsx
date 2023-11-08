@@ -256,7 +256,7 @@ const MainLayout = ({ children }) => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

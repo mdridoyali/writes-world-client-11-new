@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
-    <div className="bg-neutral pb-10 text-neutral-content">
-      <footer className="footer md:flex justify-around p-10 bg-neutral text-neutral-content">
+    <div className="bg-neutral pb-10 w-full text-neutral-content">
+      <footer className="footer md:flex justify-around p-10 w-full bg-neutral text-neutral-content">
         <aside>
           <h1 className="text-transparent text-4xl md:text-5xl bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
             Writes World
@@ -58,4 +58,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer; 

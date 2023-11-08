@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+import Footer from "../shared/Footer";
 const DetailsWishlist = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -46,7 +47,8 @@ const DetailsWishlist = () => {
   };
 
   return (
-    <div className="mb-20">
+  <div>
+      <div className="mb-20">
       <h2 className="text-transparent text-4xl pb-3 font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Blog Details{" "}
       </h2>
@@ -64,7 +66,7 @@ const DetailsWishlist = () => {
           <p className=" ">{data.long_desc}</p>
           {data?.email === email && (
             <div className="flex justify-end items-center">
-              <Link to={`/updateAll/${data._id}`}>
+              <Link to={`/updateBlog/${data._id}`}>
                 <button className="btn btn-sm  border-orange-400 rounded-full">
                   Update
                 </button>
@@ -115,7 +117,6 @@ const DetailsWishlist = () => {
                <img
                   className="w-20 h-20 bg-gray-300 rounded-full"
                   src={item.userImg}
-                  alt={item.name}
                 />
                 <p className=""></p>
                </div>
@@ -129,6 +130,8 @@ const DetailsWishlist = () => {
         )}
       </div>
     </div>
+    <Footer/>
+  </div>
   );
 };
 

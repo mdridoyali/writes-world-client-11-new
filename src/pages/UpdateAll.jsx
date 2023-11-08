@@ -4,10 +4,11 @@ import UseLoading from "../hooks/UseLoading";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import Footer from "../shared/Footer";
 
 const UpdateAll = () => {
   const { user } = useAuth();
-  const email = user?.email || "";  
+  const{ email, photoURL, displayName } = user || "";  
   const { id } = useParams();
   const postedTime = new Date();
 
@@ -25,12 +26,10 @@ const UpdateAll = () => {
       ),
   });
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return <UseLoading />;
   }
-  if (loading) {
-    return <UseLoading />;
-  }
+  
   const handleUpdateBlog = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -46,8 +45,10 @@ const UpdateAll = () => {
       long_desc,
       postedTime,
       email,
+      photoURL, 
+      displayName
     };
-    // console.log(blogDetails);
+    console.log(blogDetails);
     axios.put(`http://localhost:5000/updateBlog/${id}`, blogDetails)
     .then(res => {
       console.log(res.data)
@@ -59,7 +60,7 @@ const UpdateAll = () => {
   };
 
   return (
-    <div className="min-h-[60vh]">
+    <div> <div className="min-h-[60vh]">
       <div className="w-10/12 mx-auto my-10 md:my-16">
         <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center  mb-10 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           Update Your Blog Here
@@ -134,6 +135,9 @@ const UpdateAll = () => {
         </form>
       </div>
     </div>
+    <Footer/>
+    </div>
+   
   );
 };
 

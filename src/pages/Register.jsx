@@ -27,7 +27,7 @@ const Register = () => {
     const email = form.email.value;
     const photo = form.photo.value;
     const password = form.password.value;
-    console.log(name, email, photo, password);
+    // console.log(name, email, photo, password);
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!.])[A-Za-z\d@#$%^&+=!.]{6,20}$/
     if(!passwordRegex.test(password)){
@@ -41,7 +41,7 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         navigate(location?.state ? location?.state : '/')
-        console.log(result.user);
+        // console.log(result.user);
         updateProfile(result.user, {
           displayName: name,
           photoURL: photo,

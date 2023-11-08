@@ -4,6 +4,7 @@ import UseLoading from "../hooks/UseLoading";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import Footer from "../shared/Footer";
 
 const UpdateBlog = () => {
   const { user } = useAuth();
@@ -62,7 +63,8 @@ const UpdateBlog = () => {
   };
 
   return (
-    <div className="min-h-[60vh]">
+  <div>
+      <div className="min-h-[60vh]">
       <div className="w-10/12 mx-auto my-10 md:my-16">
         <h2 className="text-transparent text-3xl font-semibold md:text-7xl text-center  mb-10 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           Update Your Blog Here
@@ -137,6 +139,8 @@ const UpdateBlog = () => {
         </form>
       </div>
     </div>
+    <Footer/>
+  </div>
   );
 };
 

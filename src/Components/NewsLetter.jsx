@@ -1,4 +1,17 @@
+import toast from "react-hot-toast";
+
 const NewsLetter = () => {
+
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    console.log(name, email)
+    e.target.reset()
+    return toast.success('Thanks for Subscribing us')
+
+  }
+
   return (
     <div className="mb-20 w-11/12 mx-auto">
       <h1 className="text-transparent text-5xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
@@ -18,7 +31,7 @@ const NewsLetter = () => {
             your inbox. It's free!
           </p>
         </div>
-        <form className="col-span-5  flex flex-col border p-5 md:p-10 rounded-2xl  bg-gradient-to-tr from-violet-300 to-violet-500 gap-5">
+        <form onSubmit={handleSubscribe} className="col-span-5  flex flex-col border p-5 md:p-10 rounded-2xl  bg-gradient-to-tr from-violet-300 to-violet-500 gap-5">
           <div className="form-control flex-1">
             <input
               type="text"
@@ -41,7 +54,7 @@ const NewsLetter = () => {
             <input
               type="submit"
               value={"Subscribe"}
-              className="input font-bold text-xl bg-black text-white input-bordered rounded-full"
+              className="input font-bold cursor-pointer text-xl bg-black text-white input-bordered rounded-full"
               required
             />
           </div>

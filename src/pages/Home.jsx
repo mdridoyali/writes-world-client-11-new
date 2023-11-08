@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import NewsLetter from "../Components/NewsLetter";
+import Footer from "../shared/Footer";
+
 
 const Home = () => {
   const { user } = useAuth();
@@ -94,7 +96,7 @@ if(isLoading){
           </div>
            <NewsLetter/>
         </div>
-     
+     <Footer/>
     </div>
   );
 };

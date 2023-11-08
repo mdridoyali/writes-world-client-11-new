@@ -7,6 +7,7 @@ import useAuth from "./../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Footer from "../shared/Footer";
 const AllBlogs = () => {
   const { user } = useAuth();
   const wishlist_email = user?.email || "";
@@ -164,7 +165,7 @@ const AllBlogs = () => {
             ))}
           </div>
         </div>
-    
+       <Footer/>
     </div>
   );
 };

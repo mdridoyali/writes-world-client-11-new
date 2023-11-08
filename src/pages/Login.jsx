@@ -16,7 +16,6 @@ const { logInUser } = useContext(AuthContext);
     const toastId = toast.loading('logging in ...')
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
     logInUser(email, password)
       .then((result) => {
         console.log(result.user);
@@ -24,7 +23,6 @@ const { logInUser } = useContext(AuthContext);
         return toast.success('Logged in', {id: toastId, duration: 3000} )
       })
       .catch((error) => {
-        console.log(error.user);
         return toast.error(error.message, {id: toastId, duration: 3000})
       });
   };

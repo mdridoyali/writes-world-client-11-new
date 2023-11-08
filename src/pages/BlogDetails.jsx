@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+import Footer from "../shared/Footer";
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -46,7 +47,8 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className="mb-20">
+   <div>
+     <div className="mb-20">
       <h2 className="text-transparent text-4xl pb-3 font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Blog Details{" "}
       </h2>
@@ -115,7 +117,6 @@ const BlogDetails = () => {
                <img
                   className="w-20 h-20 bg-gray-300 rounded-full"
                   src={item.userImg}
-                  alt={item.name}
                 />
                 <p className=""></p>
                </div>
@@ -129,6 +130,8 @@ const BlogDetails = () => {
         )}
       </div>
     </div>
+    <Footer/>
+   </div>
   );
 };
 

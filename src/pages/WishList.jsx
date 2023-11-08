@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import UseLoading from "../hooks/UseLoading";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Footer from "../shared/Footer";
 
 const WishList = () => {
 
@@ -60,7 +61,8 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-[60vh] mb-20">
+  <div>
+      <div className="min-h-[60vh] mb-20">
       <h1 className="text-transparent text-3xl pb-3 font-semibold md:text-7xl text-center mt-8 mb-3 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
         Your WishLists
       </h1>
@@ -107,6 +109,8 @@ useEffect(() => {
         ))}
       </div>
     </div>
+    <Footer/>
+  </div>
   );
 };
 
