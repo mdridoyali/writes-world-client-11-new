@@ -1,16 +1,15 @@
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const NewsLetter = () => {
-
   const handleSubscribe = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    console.log(name, email)
-    e.target.reset()
-    return toast.success('Thanks for Subscribing us')
-
-  }
+    console.log(name, email);
+    e.target.reset();
+    return toast.success("Thanks for Subscribing us");
+  };
 
   return (
     <div className="mb-20 w-11/12 mx-auto">
@@ -31,7 +30,11 @@ const NewsLetter = () => {
             your inbox. It's free!
           </p>
         </div>
-        <form onSubmit={handleSubscribe} className="col-span-5  flex flex-col border p-5 md:p-10 rounded-2xl  bg-gradient-to-tr from-violet-300 to-violet-500 gap-5">
+        <motion.div
+          whileHover={{ x: [0, 100, 0] }}
+          onSubmit={handleSubscribe}
+          className="col-span-5  flex flex-col border p-5 md:p-10 rounded-2xl  bg-gradient-to-tr from-violet-300 to-violet-500 gap-5"
+        >
           <div className="form-control flex-1">
             <input
               type="text"
@@ -58,7 +61,7 @@ const NewsLetter = () => {
               required
             />
           </div>
-        </form>
+        </motion.div>
       </div>
     </div>
   );

@@ -25,10 +25,12 @@ const OurCategory = () => {
         {data.map((item) => (
           <motion.button
             key={item._id}
+            className="hover:shadow-2xl rounded-full"
             whileHover={{
               scale: [1, 1,  1, 1],
               rotate: [  360, 360, 0],
               // borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+            
             }}
           >
             <img className="rounded-full" src={item.img} />

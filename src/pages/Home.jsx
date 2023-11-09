@@ -59,16 +59,18 @@ const Home = () => {
         <h1 className="text-transparent text-5xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           Recent Posts
         </h1>
-        <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
+        <div className="w-11/12 grid gap-10 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
           {data?.map((item, idx) => (
-            <div
-              className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full text-left shadow-lg"
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              // whileTap={{ scale: 1.4 }}
+              className="border flex  flex-col lg:flex-row hover:shadow-2xl gap-2 p-2 rounded-2xl w-full text-left shadow-lg"
               key={idx}
             >
               <div className="flex-1">
                 {" "}
                 <img
-                  className="w-full h-72 md:h-96 lg:h-64 hover:shadow-2xl  rounded-xl"
+                  className="w-full h-72 md:h-96 lg:h-64   rounded-xl"
                   src={item.image}
                 />
               </div>
@@ -80,9 +82,13 @@ const Home = () => {
                     {item.category}
                   </p>
                   <Link to={`/blogDetails/${item._id}`}>
-                    <button className="btn btn-sm btn-accent  rounded-full text-white">
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 1.4 }}
+                      className="btn btn-sm btn-accent  rounded-full text-white"
+                    >
                       Details
-                    </button>
+                    </motion.button>
                   </Link>
                 </div>
                 <div className="pt-2">
@@ -98,7 +104,7 @@ const Home = () => {
                 </div>
                 <p className="text-sm">Posted date: {item.postedTime}</p>
               </div>
-            </div>
+            </motion.button>
           ))}
         </div>
         <OurCategory />

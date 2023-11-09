@@ -8,6 +8,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Footer from "../shared/Footer";
+import { motion } from 'framer-motion';
 const AllBlogs = () => {
   const { user } = useAuth();
   const wishlist_email = user?.email || "";
@@ -44,26 +45,6 @@ const AllBlogs = () => {
       });
   }, [searchValue, selectedCategory]);
 
-  // useEffect(() => {
-  //   setLoader(true);
-  //   fetch(
-  //     'https://assignment-11-jwt-server.vercel.app/allBlogs'
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data)
-  //       setBlogs(data);
-  //       setLoader(false);
-  //     });
-  // }, []);
-
-  // const { isLoading } = useQuery({
-  //   queryKey: ["allBlogs"],
-  //   queryFn: () =>
-  //     fetch(
-  //       `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
-  //     ).then((res) => res.json()),
-  // });
   if ( loader) {
     return <UseLoading />;
   }
@@ -133,14 +114,16 @@ const AllBlogs = () => {
         </div>
         <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
           {blogs.map((item, idx) => (
-            <div
-              className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
+            <motion.button
+                    whileHover={{ scale: 0.9 }}
+                    // whileTap={{ scale: 1.4 }}
+              className="border flex text-left hover:shadow-2xl flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full "
               key={idx}
             >
               <div className="flex-1">
                 {" "}
                 <img
-                  className="w-full h-72 md:h-96 lg:h-64 hover:shadow-2xl  rounded-xl"
+                  className="w-full h-72 md:h-96 lg:h-64  rounded-xl"
                   src={item.image}
                 />
               </div>
@@ -168,7 +151,7 @@ const AllBlogs = () => {
                 </div>
                 <p className="text-sm">Posted date: {item.postedTime}</p>
               </div>
-            </div>
+            </motion.button>
           ))}
         </div>
       </div>
