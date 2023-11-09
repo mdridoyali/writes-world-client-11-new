@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
 
         axios
           .post(
-            "http://localhost:5000/jwtS",
+            "https://assignment-11-jwt-server.vercel.app/jwtS",
             { email: userEmail },
             { withCredentials: true }
           )
@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "http://localhost:5000/logout",
+            "https://assignment-11-jwt-server.vercel.app/logout",
             { email: userEmail },
             { withCredentials: true }
           )
@@ -91,3 +91,5 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
+
+

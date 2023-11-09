@@ -1,5 +1,7 @@
 import { FaRegHeart } from "react-icons/fa";
 // import { useQuery } from "@tanstack/react-query";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import { useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import UseLoading from "../hooks/UseLoading";
@@ -8,7 +10,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Footer from "../shared/Footer";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 const AllBlogs = () => {
   const { user } = useAuth();
@@ -30,16 +32,13 @@ const AllBlogs = () => {
   const { data: blogs, isLoading } = useQuery({
     queryKey: ["allBlog", searchValue, selectedCategory],
     queryFn: () =>
-    fetch(
-      `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
-    ).then((res) =>
-        res.json()
-      ),
+      fetch(
+        `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
+      ).then((res) => res.json()),
   });
   // console.log(blogs.length)
 
-
-  if ( isLoading) {
+  if (isLoading) {
     return <UseLoading />;
   }
 
@@ -74,9 +73,9 @@ const AllBlogs = () => {
         <h2 className="text-transparent pb-3 text-4xl font-semibold md:text-7xl text-center mt-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           All The Blogs
         </h2>
-        <p className="text-xl font-bold mb-10 text-center block lg:hidden" >Total Blogs {blogs.length}</p>
-  
-        
+        <p className="text-xl font-bold mb-10 text-center block lg:hidden">
+          Total Blogs {blogs.length}
+        </p>
 
         <div className=" w-11/12 mx-auto gap-5  flex flex-col md:flex-row justify-between  my-6">
           <form onSubmit={handleSearch} className="relative">
@@ -95,7 +94,9 @@ const AllBlogs = () => {
               <FaSistrix className="text-2xl"></FaSistrix>
             </button>
           </form>
-          <p className="text-xl font-bold text-center  hidden lg:block " >Total Blogs {blogs.length}</p>
+          <p className="text-xl font-bold text-center  hidden lg:block ">
+            Total Blogs {blogs.length}
+          </p>
           <select
             onChange={handleCategory}
             value={selectedCategory}
@@ -113,17 +114,21 @@ const AllBlogs = () => {
         <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
           {blogs.map((item, idx) => (
             <motion.button
-                    whileHover={{ scale: 0.9 }}
-                    // whileTap={{ scale: 1.4 }}
+              whileHover={{ scale: 0.9 }}
+              // whileTap={{ scale: 1.4 }}
               className="border flex text-left hover:shadow-2xl flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full "
               key={idx}
             >
               <div className="flex-1">
                 {" "}
-                <img
-                  className="w-full h-72 md:h-96 lg:h-64  rounded-xl"
-                  src={item.image}
-                />
+                <PhotoProvider>
+                  <PhotoView src={item.image}>
+                    <img
+                      className="w-full h-72 md:h-96 lg:h-64  rounded-xl"
+                      src={item.image}
+                    />
+                  </PhotoView>
+                </PhotoProvider>
               </div>
               <div className="space-y-2 flex justify-between flex-col flex-1">
                 <p className="font-semibold text-xl">{item.title}</p>

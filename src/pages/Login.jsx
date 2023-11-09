@@ -23,7 +23,8 @@ const { logInUser } = useContext(AuthContext);
         return toast.success('Logged in', {id: toastId, duration: 3000} )
       })
       .catch((error) => {
-        return toast.error(error.message, {id: toastId, duration: 3000})
+        console.log(error)
+        return toast.error('Invalid email or password', {id: toastId, duration: 3000})
       });
   };
 

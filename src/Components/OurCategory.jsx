@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import UseLoading from "../hooks/UseLoading";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const OurCategory = () => {
   const { data, isLoading, isError } = useQuery({
@@ -23,23 +25,38 @@ const OurCategory = () => {
       </h2>
       <div className="grid gap-10 mt-16 md:grid-cols-2 lg:grid-cols-3">
         {data.map((item) => (
-          <motion.button
+          <div
             key={item._id}
             className="hover:shadow-2xl rounded-full"
-            whileHover={{
-              scale: [1, 1,  1, 1],
-              rotate: [  360, 360, 0],
-              // borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-            
-            }}
+            // whileHover={{
+            // scale: [1, 1, 1, 1],
+            // rotate: [360, 360, 0],
+            // borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+            // }}
           >
-            <img className="rounded-full" src={item.img} />
+            {/* <PhotoView className="rounded-full" src={item.img}>
+              <img
+                className="rounded-full"
+                src={item.img}
+                style={{ objectFit: "cover" }}
+              />
+            </PhotoView> */}
+            <PhotoProvider>
+              <PhotoView src={item.img}>
+                <img
+                  className="rounded-full"
+                  src={item.img}
+                  style={{ objectFit: "cover" }}
+                />
+              </PhotoView>
+            </PhotoProvider>
+
             <div>
               <h2 className="text-center text-xl font-bold rounded-full bg-lime-100">
                 {item.category}
               </h2>
             </div>
-          </motion.button>
+          </div>
         ))}
       </div>
     </div>
@@ -47,4 +64,3 @@ const OurCategory = () => {
 };
 
 export default OurCategory;
-
