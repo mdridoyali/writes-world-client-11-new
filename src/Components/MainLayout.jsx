@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { FaHome, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
-import Theme from "./Theme";
+// import Theme from "./Theme";
 import useAuth from "../hooks/useAuth";
 import { useState } from "react";
 
 const MainLayout = ({ children }) => {
   const { user, logOutUser } = useAuth();
-
+// console.log(user)
  
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
@@ -193,7 +193,7 @@ const MainLayout = ({ children }) => {
           {/* Content */}
           {children}
         </div>
-        <div className={`drawer-side ${isSidebarOpen ? 'open' : ''}`}>
+        <div className={`drawer-side ${isSidebarOpen ? 'open' : 'close'}`}>
           <label
             htmlFor="my-drawer-3"
             aria-label="close sidebar"
@@ -203,7 +203,7 @@ const MainLayout = ({ children }) => {
             {/* Sidebar menu content here */}
             <p className="m-2"></p>
             <NavLink
-            //  onClick={closeSidebar} 
+             onClick={closeSidebar} 
               to={"/"}
               className={({ isActive }) =>
                 isActive
@@ -215,7 +215,7 @@ const MainLayout = ({ children }) => {
               Home
             </NavLink>
             <NavLink
-            // onClick={closeSidebar} 
+            onClick={closeSidebar} 
               to={"/addBlog"}
               className={({ isActive }) =>
                 isActive
@@ -226,7 +226,7 @@ const MainLayout = ({ children }) => {
               Add Blog
             </NavLink>
             <NavLink
-            // onClick={closeSidebar} 
+            onClick={closeSidebar} 
               to={"/allBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -237,7 +237,7 @@ const MainLayout = ({ children }) => {
               All Blogs
             </NavLink>
             <NavLink
-            // onClick={closeSidebar} 
+            onClick={closeSidebar} 
               to={"/featuredBlogs"}
               className={({ isActive }) =>
                 isActive
@@ -248,7 +248,7 @@ const MainLayout = ({ children }) => {
               Featured Blogs
             </NavLink>
             <NavLink
-            // onClick={closeSidebar} 
+            onClick={closeSidebar} 
               to={"/wishlist"}
               className={({ isActive }) =>
                 isActive

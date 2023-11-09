@@ -21,7 +21,7 @@ const BlogDetails = () => {
         res.json()
       ),
   });
-
+console.log(data)
   const { data: commentData, isLoading: loading } = useQuery({
     queryKey: ["allComment", id],
     queryFn: () =>

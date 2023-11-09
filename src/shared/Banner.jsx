@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 const Banner = () => {
   return (
@@ -16,9 +17,12 @@ const Banner = () => {
           <br />
           <p>Explore our all blogs</p> <br />
           <Link to={"/allBlogs"}>
-            <button className="md:text-2xl  rounded-full font-bold btn border-none transition-all  ease-linear hover:pr-10 text-white bg-gradient-to-r from-violet-600 to-amber-500">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 1.4 }} 
+              className="md:text-2xl  rounded-full font-bold btn border-none    text-white bg-gradient-to-r from-violet-600 to-amber-500">
               Explore More
-            </button>
+            </motion.button>
           </Link>
         </div>
       </div>

@@ -30,16 +30,16 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // useEffect(() => {
-  //   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     //   console.log(currentUser);
-  //     setUser(currentUser);
-  //     setLoader(false);
-  //   });
-  //   return () => {
-  //     unSubscribe();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      //   console.log(currentUser);
+      setUser(currentUser);
+      setLoader(false);
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -75,7 +75,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unsubscribe();
     };
-  }, [user?.email]);
+  }, [user]);
 
   const authInfo = {
     user,

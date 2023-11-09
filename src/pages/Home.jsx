@@ -10,9 +10,7 @@ import NewsLetter from "../Components/NewsLetter";
 import Footer from "../shared/Footer";
 import About from "./About";
 import OurCategory from "../Components/OurCategory";
-// import useHover from './../hooks/useHover';
-import { motion } from 'framer-motion';
-
+import { motion } from "framer-motion";
 
 const Home = () => {
   const { user } = useAuth();
@@ -20,12 +18,15 @@ const Home = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["blogsInHome"],
     queryFn: () =>
-      fetch("https://assignment-11-jwt-server.vercel.app/blogsForHome").then((res) => res.json()),
+      fetch("https://assignment-11-jwt-server.vercel.app/blogsForHome").then(
+        (res) => res.json()
+      ),
   });
   console.log(data, isLoading, isError);
 
   const handleAddToWishlist = (item) => {
-    const { title, image, short_desc, long_desc, category, postedTime, email } = item;
+    const { title, image, short_desc, long_desc, category, postedTime, email } =
+      item;
     const wishListData = {
       title,
       image,
@@ -34,86 +35,77 @@ const Home = () => {
       category,
       postedTime,
       email,
-      wishlist_email
+      wishlist_email,
     };
     console.log(wishListData);
     axios
-      .post("https://assignment-11-jwt-server.vercel.app/wishlistBlogs", wishListData)
+      .post(
+        "https://assignment-11-jwt-server.vercel.app/wishlistBlogs",
+        wishListData
+      )
       .then((res) => {
         console.log(res.data);
         toast.success("Added to the Wishlist", { duration: 3000 });
       });
   };
-if(isLoading){
-  return <UseLoading/>
-}
-
-
+  if (isLoading) {
+    return <UseLoading />;
+  }
 
   return (
     <div>
-     
-        <div>
-          <Banner />
-          <h1 className="text-transparent text-5xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
-            Recent Posts
-          </h1>
-          <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
-            {data?.map((item, idx) => (
-              <motion.button
-               whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-                className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full  shadow-lg"
-                key={idx}
-              >
-                <div className="flex-1">
-                  {" "}
-                  <img
-                    className="w-full h-72 md:h-96 lg:h-64 hover:shadow-2xl  rounded-xl"
-                    src={item.image}
-                  />
-                </div>
-                <div className="space-y-2  flex justify-between flex-col  flex-1">
-                  <p className="font-semibold text-xl">{item.title}</p>
-                  <p className="pb-2">{item.short_desc}</p>
-                  <div className="flex gap-2">
-                    <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
-                      {item.category}
-                    </p>
-                    <Link  to={`/blogDetails/${item._id}`}>
-                    <button  className="btn btn-sm btn-accent  rounded-full text-white">
+      <div>
+        <Banner />
+        <h1 className="text-transparent text-5xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
+          Recent Posts
+        </h1>
+        <div className="w-11/12 grid gap-5 grid-cols-1 mb-16 lg:grid-cols-2 mx-auto  ">
+          {data?.map((item, idx) => (
+            <div
+              className="border flex  flex-col lg:flex-row gap-2 p-2 rounded-2xl w-full text-left shadow-lg"
+              key={idx}
+            >
+              <div className="flex-1">
+                {" "}
+                <img
+                  className="w-full h-72 md:h-96 lg:h-64 hover:shadow-2xl  rounded-xl"
+                  src={item.image}
+                />
+              </div>
+              <div className="space-y-2  flex justify-between flex-col  flex-1">
+                <p className="font-semibold text-xl">{item.title}</p>
+                <p className="pb-2">{item.short_desc}</p>
+                <div className="flex gap-2">
+                  <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
+                    {item.category}
+                  </p>
+                  <Link to={`/blogDetails/${item._id}`}>
+                    <button className="btn btn-sm btn-accent  rounded-full text-white">
                       Details
                     </button>
-                    </Link>
-                  </div>
-                 <div className="pt-2">
-                 <button
+                  </Link>
+                </div>
+                <div className="pt-2">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 1.4 }}
                     onClick={() => handleAddToWishlist(item)}
                     className="btn btn-sm  border-orange-400  rounded-full"
                   >
                     Add To WishList{" "}
                     <FaRegHeart className="text-red-500 text-lg "></FaRegHeart>
-                  </button>
-                 </div>
-                  <p className="text-sm">Posted date: {item.postedTime}</p>
+                  </motion.button>
                 </div>
-              </motion.button>
-            ))}
-          </div>
-          {/* <motion.button
-            key={item._id}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="mb-5"
-          > */}
-
-
-          <OurCategory/>
-          <useHover/>
-          <About/>
-           <NewsLetter/>
+                <p className="text-sm">Posted date: {item.postedTime}</p>
+              </div>
+            </div>
+          ))}
         </div>
-     <Footer/>
+        <OurCategory />
+        <About />
+        <NewsLetter />
+      </div>
+      <Footer />
     </div>
   );
 };
