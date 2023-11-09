@@ -1,6 +1,6 @@
 import { FaRegHeart } from "react-icons/fa";
 // import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import UseLoading from "../hooks/UseLoading";
 import useAuth from "./../hooks/useAuth";
@@ -9,22 +9,17 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Footer from "../shared/Footer";
 import { motion } from 'framer-motion';
+import { useQuery } from "@tanstack/react-query";
 const AllBlogs = () => {
   const { user } = useAuth();
   const wishlist_email = user?.email || "";
-  const [blogs, setBlogs] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [loader, setLoader] = useState(true);
 
   const handleCategory = (e) => {
     setSelectedCategory(e.target.value);
     console.log(e.target.value);
   };
-  // const handleSearchInput = (e) => {
-  //setSearchValue(e.target.searchValue.value);
-   //console.log(e.target.value);
-  // };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,20 +27,22 @@ const AllBlogs = () => {
     setSearchValue(e.target.searchValue.value);
   };
 
-  useEffect(() => {
-    setLoader(true);
+  const { data: blogs, isLoading } = useQuery({
+    queryKey: ["allBlog", searchValue, selectedCategory],
+    queryFn: () =>
     fetch(
       `https://assignment-11-jwt-server.vercel.app/allBlogs?title=${searchValue}&category=${selectedCategory}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setBlogs(data);
-        setLoader(false);
-        console.log(data)
-      });
-  }, [searchValue, selectedCategory]);
+    ).then((res) =>
+        res.json()
+      ),
+  });
+  // console.log(blogs.length)
 
-  if ( loader) {
+  // if(blogs.length === 0){
+  //   <p className="text-4xl font-bold text-center" >No data found</p>
+  // }
+
+  if ( isLoading) {
     return <UseLoading />;
   }
 
@@ -77,11 +74,14 @@ const AllBlogs = () => {
   return (
     <div>
       <div className=" my-12">
-        <h2 className="text-transparent pb-3 text-3xl font-semibold md:text-7xl text-center my-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
+        <h2 className="text-transparent pb-3 text-4xl font-semibold md:text-7xl text-center mt-8 bg-clip-text bg-gradient-to-r from-violet-600 to-amber-500">
           All The Blogs
         </h2>
+        <p className="text-xl font-bold mb-10 text-center block lg:hidden" >Total Blogs {blogs.length}</p>
+  
+        
 
-        <div className=" w-11/12 mx-auto gap-5 md:gap-20 lg:gap-72 flex flex-col md:flex-row justify-between  my-6">
+        <div className=" w-11/12 mx-auto gap-5  flex flex-col md:flex-row justify-between  my-6">
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
@@ -89,7 +89,7 @@ const AllBlogs = () => {
               placeholder="Search by title"
               // value={searchValue}
               // onClick={handleSearchInput}
-              className="rounded-full h-12 w-full outline-none border pl-5 pr-20 border-orange-400"
+              className="rounded-full h-12 w-full  outline-none border pl-5 pr-20 border-orange-400"
             />
             <button
               type="submit"
@@ -98,10 +98,11 @@ const AllBlogs = () => {
               <FaSistrix className="text-2xl"></FaSistrix>
             </button>
           </form>
+          <p className="text-xl font-bold text-center  hidden lg:block " >Total Blogs {blogs.length}</p>
           <select
             onChange={handleCategory}
             value={selectedCategory}
-            className="input border-orange-400 rounded-full"
+            className="input flex-2 border-orange-400 rounded-full"
           >
             <option value="All">All</option>
             <option value="Food">Food</option>
