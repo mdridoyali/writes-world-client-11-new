@@ -7,8 +7,8 @@ import useAuth from "../hooks/useAuth";
 import Footer from "../shared/Footer";
 
 const UpdateBlog = () => {
-  const { user } = useAuth();
-  const email = user?.email || "";  
+  const { user } = useAuth();  
+  const {displayName, email, photoURL} = user
   const { id } = useParams();
   const postedTime = new Date();
 
@@ -50,6 +50,8 @@ const UpdateBlog = () => {
       long_desc,
       postedTime,
       email,
+      displayName,
+      photoURL
     };
     // console.log(blogDetails);
     axios.put(`https://assignment-11-jwt-server.vercel.app/updateBlogWishlist/${id}`, blogDetails)

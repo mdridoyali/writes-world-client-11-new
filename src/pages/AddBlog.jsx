@@ -7,8 +7,11 @@ import Footer from "../shared/Footer";
 
 const AddBlog = () => {
   const { user } = useAuth();
-  const email = user?.email || "";
+  // const email = user?.email || "";
+  const {displayName, email, photoURL} = user
   const postedTime = new Date();
+
+  console.log(displayName, email, photoURL)
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["category"],
@@ -31,6 +34,7 @@ const AddBlog = () => {
       long_desc,
       email,
       postedTime,
+      displayName,
     };
     console.log(blogDetails);
 

@@ -1,36 +1,29 @@
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
-import { useEffect, useState } from "react";
 import UseLoading from "../hooks/UseLoading";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Footer from "../shared/Footer";
 import { motion } from "framer-motion";
+import useAxios from "../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const WishList = () => {
+  const axiosSecure = useAxios()
   const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const email = user?.email;
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(
-        `https://assignment-11-jwt-server.vercel.app/wishlistBlogs?email=${email}`
-      )
-      .then((res) => {
-        console.log(res.data);
-        setWishlist(res.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-  }, [email]);
+  const { isLoading } = useQuery({
+    queryKey: ["wishlist", email],
+    queryFn: () =>
+      axiosSecure.get(`/wishlistBlogs?email=${email}`)
+        .then(res => setWishlist(res.data)),
+  });
+  
 
-  if (loading) {
+  if (isLoading) {
     return <UseLoading />;
   }
 

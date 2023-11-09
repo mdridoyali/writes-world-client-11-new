@@ -38,9 +38,6 @@ const AllBlogs = () => {
   });
   // console.log(blogs.length)
 
-  // if(blogs.length === 0){
-  //   <p className="text-4xl font-bold text-center" >No data found</p>
-  // }
 
   if ( isLoading) {
     return <UseLoading />;
