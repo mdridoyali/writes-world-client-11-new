@@ -15,8 +15,8 @@ const WishList = () => {
   const { user } = useAuth();
   const email = user?.email;
 
-  const { isLoading } = useQuery({
-    queryKey: ["wishlist", email],
+  const { isLoading, refetch } = useQuery({
+    queryKey: ["wishlistData", email],
     queryFn: () =>
       axiosSecure.get(`/wishlistBlogs?email=${email}`)
         .then(res => setWishlist(res.data)),
@@ -45,15 +45,14 @@ const WishList = () => {
             id
           )
           .then((data) => {
-            console.log(data);
+            console.log(data.data);
             if (data.data.deletedCount > 0) {
               Swal.fire(
                 "Deleted!",
                 "Your Wishlist has been deleted.",
                 "success"
               );
-              const remaining = wishlist.filter((item) => item._id !== id);
-              setWishlist(remaining);
+              refetch()
             }
           });
       }
@@ -87,9 +86,9 @@ const WishList = () => {
               <p className="border w-max px-5 py-[2px] rounded-full border-orange-400">
                 {item.category}
               </p>
-              <p className="font-semibold text-xl">{item.title}</p>
-              <p>{item.short_desc}</p>
-              <div className="flex justify-between items-center">
+              <p className="font-semibold text-left text-xl">{item.title}</p>
+              <p className=" text-left">{item.short_desc}</p>
+              <div className="flex  justify-between items-center">
                 <button
                   onClick={() => handleDelete(item._id)}
                   className="btn btn-sm  border-orange-400 rounded-full"

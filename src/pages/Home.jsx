@@ -25,6 +25,9 @@ const Home = () => {
   console.log(data, isLoading, isError);
 
   const handleAddToWishlist = (item) => {
+    if(!user?.email){
+      return toast.error("Login First", { duration: 3000 });
+     }
     const { title, image, short_desc, long_desc, category, postedTime, email } =
       item;
     const wishListData = {

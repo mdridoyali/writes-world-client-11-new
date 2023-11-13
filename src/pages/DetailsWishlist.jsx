@@ -22,7 +22,7 @@ const DetailsWishlist = () => {
       ),
   });
 
-  const { data: commentData, isLoading: loading } = useQuery({
+  const { data: commentData, isLoading: loading, refetch} = useQuery({
     queryKey: ["allComment", id],
     queryFn: () =>
       fetch(`https://assignment-11-jwt-server.vercel.app/comments/${id}`).then((res) => res.json()),
@@ -41,7 +41,8 @@ const DetailsWishlist = () => {
     axios.post("https://assignment-11-jwt-server.vercel.app/allComment", commentData).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
-        return toast.success("Thanks for your feedback");
+         toast.success("Thanks for your feedback");
+         refetch()
       }
     });
   };

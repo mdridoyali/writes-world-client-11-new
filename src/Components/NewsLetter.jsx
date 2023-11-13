@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
@@ -30,7 +31,7 @@ const NewsLetter = () => {
             your inbox. It's free!
           </p>
         </div>
-        <motion.div
+        <motion.form
           whileHover={{ x: [0, 100, 0] }}
           onSubmit={handleSubscribe}
           className="col-span-5  flex flex-col border p-5 md:p-10 rounded-2xl  bg-gradient-to-tr from-violet-300 to-violet-500 gap-5"
@@ -61,7 +62,7 @@ const NewsLetter = () => {
               required
             />
           </div>
-        </motion.div>
+        </motion.form>
       </div>
     </div>
   );

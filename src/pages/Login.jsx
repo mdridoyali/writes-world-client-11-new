@@ -73,7 +73,7 @@ const { logInUser } = useContext(AuthContext);
                 <label className="label">
                 </label>
                 <div className="form-control mt-3">
-                  <button className="btn btn-primary">Login</button>
+                  <button className="btn text-white font-bold  hover:text-black  bg-lime-600 ">Login</button>
                 </div>
                 <p>
                   New here? please{" "}

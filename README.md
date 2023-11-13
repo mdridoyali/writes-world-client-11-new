@@ -13,3 +13,5 @@ server site repository link: https://github.com/Porgramming-Hero-web-course/b8a1
 6.Home Page, All Blocks, and Wish List Click on the Blog Details button to view the block details.
 7.The home page features six blogs in ascending order by time
 8.There is a newsletter section on the homepage from where users can subscribe to our block k website by giving their name and email and clicking on the subscribe button will give them a toast massage.
+
+Completed this task react-img-hover-zoom, react-loading-skeleton, react-photo-view and framer-motion from optional task.

@@ -43,6 +43,9 @@ const AllBlogs = () => {
   }
 
   const handleAddToWishlist = (item) => {
+    if(!user?.email){
+     return toast.error("Login First", { duration: 3000 });
+    }
     const { title, image, short_desc, long_desc, category, postedTime, email } =
       item;
     const wishListData = {
@@ -144,7 +147,7 @@ const AllBlogs = () => {
                   </Link>
                 </div>
                 <div className="pt-2">
-                  <button
+               <button
                     onClick={() => handleAddToWishlist(item)}
                     className="btn btn-sm  border-orange-400  rounded-full"
                   >

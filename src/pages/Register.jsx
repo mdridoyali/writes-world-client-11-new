@@ -153,7 +153,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="form-control mt-6">
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn  text-white hover:text-black font-bold bg-lime-600 ">
                     Register
                   </button>
                 </div>
@@ -165,7 +165,7 @@ const Register = () => {
                 <div className="">
                   <div className="space-y-3 mt-2 gap-3 justify-between">
                     <button
-                      className="btn w-full btn-sm md:px-8 px-4 "
+                      className="btn w-full hover:bg-lime-600 hover:text-white md:px-8 px-4 "
                       onClick={googleLogin}
                     >
                       {"Continue with Google"}

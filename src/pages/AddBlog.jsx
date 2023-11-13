@@ -14,10 +14,11 @@ const AddBlog = () => {
   console.log(displayName, email, photoURL)
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["category"],
+    queryKey: ["categoriesCollection"],
     queryFn: () =>
       fetch("https://assignment-11-jwt-server.vercel.app/category").then((res) => res.json()),
   });
+  console.log(data)
 
   const handleAddBlog = (e) => {
     e.preventDefault();
