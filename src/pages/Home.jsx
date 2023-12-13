@@ -6,11 +6,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
-import NewsLetter from "../Components/NewsLetter";
+// import NewsLetter from "../Components/NewsLetter";
 import Footer from "../shared/Footer";
 import About from "./About";
 import OurCategory from "../Components/OurCategory";
 import { motion } from "framer-motion";
+import ContactUs from "../Components/ContactUs";
 
 const Home = () => {
   const { user } = useAuth();
@@ -25,9 +26,9 @@ const Home = () => {
   console.log(data, isLoading, isError);
 
   const handleAddToWishlist = (item) => {
-    if(!user?.email){
+    if (!user?.email) {
       return toast.error("Login First", { duration: 3000 });
-     }
+    }
     const { title, image, short_desc, long_desc, category, postedTime, email } =
       item;
     const wishListData = {
@@ -112,7 +113,8 @@ const Home = () => {
         </div>
         <OurCategory />
         <About />
-        <NewsLetter />
+        <ContactUs/>
+        {/* <NewsLetter /> */}
       </div>
       <Footer />
     </div>
